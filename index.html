@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Crescimento Digital - Moma Móveis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Warm Neutrals & Terracotta -->
+    <!-- Application Structure Plan: A narrative, single-page dashboard structure. It starts with macro market data to hook the user, delves into customer psychology with interactive charts, presents the customer journey as a clear, clickable 3-step process, and features an interactive phase-selector for the action plan. This structure transforms a linear report into an exploratory tool, allowing decision-makers to easily grasp the core concepts and compare investment scenarios, thus enhancing engagement and understanding. -->
+    <!-- Visualization & Content Choices: 
+    - Market Stats (Growth/Revenue): Goal: Inform/Impress -> Method: Large dynamic text counters -> Interaction: Numbers animate on load -> Justification: Creates an immediate 'wow' factor and highlights key opportunities.
+    - Online Research (6/10): Goal: Inform -> Method: HTML/CSS icon grid -> Interaction: Static visual -> Justification: Simple, visual, and effective representation of a key statistic.
+    - Customer Priorities (Personality/Quality/Durability): Goal: Compare -> Method: Doughnut Chart (Chart.js) -> Interaction: Hover to see details -> Justification: Visually compelling way to show proportions and priorities.
+    - Customer Journey: Goal: Organize -> Method: Interactive Tabs/Stepper -> Interaction: Click to reveal content for each step -> Justification: Breaks down the process into focused, digestible chunks.
+    - Action Plan: Goal: Compare/Organize -> Method: Interactive Buttons -> Interaction: Click to switch between phases and see corresponding investment/focus -> Justification: Allows direct comparison of strategic options, critical for decision making.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F7F4;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 400px;
+            }
+        }
+        .brand-heading {
+            color: #A97C50;
+        }
+        .brand-bg {
+            background-color: #A97C50;
+        }
+        .brand-bg-light {
+            background-color: #D3B89E;
+        }
+        .brand-border {
+            border-color: #A97C50;
+        }
+        .nav-link.active {
+            background-color: #A97C50;
+            color: white;
+        }
+        .phase-button.active {
+            background-color: #A97C50;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .journey-tab.active {
+            border-color: #A97C50;
+            background-color: white;
+            color: #A97C50;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold brand-heading">Moma Móveis</h1>
+            <div class="flex space-x-2 md:space-x-4">
+                <a href="#oportunidade" class="nav-link text-sm md:text-base px-3 py-2 rounded-md hover:bg-gray-200 transition-colors">Oportunidade</a>
+                <a href="#cliente" class="nav-link text-sm md:text-base px-3 py-2 rounded-md hover:bg-gray-200 transition-colors">O Cliente</a>
+                <a href="#jornada" class="nav-link text-sm md:text-base px-3 py-2 rounded-md hover:bg-gray-200 transition-colors">Jornada</a>
+                <a href="#plano" class="nav-link text-sm md:text-base px-3 py-2 rounded-md hover:bg-gray-200 transition-colors">Plano de Ação</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section class="text-center py-12 md:py-20">
+            <h2 class="text-3xl md:text-5xl font-bold brand-heading mb-4">Plano de Crescimento Digital</h2>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-600">
+                Uma análise estratégica para posicionar a <span class="font-semibold">Moma Móveis</span> na vanguarda do mercado digital e conectar seus produtos exclusivos aos clientes certos.
+            </p>
+        </section>
+
+        <section id="oportunidade" class="py-12 md:py-16 bg-white rounded-xl shadow-lg">
+            <div class="text-center mb-12 px-4">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800">Uma Oportunidade Única para a Moma</h3>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+                    Analisamos o cenário atual e os dados mostram um caminho claro para o crescimento. A Moma tem a oportunidade de ouro de estar no lugar certo, na hora certa, para o cliente certo.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center px-6">
+                <div class="p-6 bg-gray-50 rounded-lg">
+                    <h4 class="text-lg font-semibold text-gray-700">Crescimento do Setor</h4>
+                    <p class="text-4xl md:text-5xl font-bold brand-heading my-3" id="growth-stat">0%</p>
+                    <p class="text-gray-500">O faturamento da indústria de móveis está em plena expansão.</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-lg">
+                    <h4 class="text-lg font-semibold text-gray-700">Faturamento da Indústria</h4>
+                    <p class="text-4xl md:text-5xl font-bold brand-heading my-3" id="revenue-stat">R$ 0 bi</p>
+                    <p class="text-gray-500">Mostrando a força e o potencial do mercado.</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-lg">
+                    <h4 class="text-lg font-semibold text-gray-700">A Vitrine é Digital</h4>
+                     <div class="flex justify-center space-x-2 my-4">
+                        <span class="w-8 h-8 brand-bg rounded-full"></span>
+                        <span class="w-8 h-8 brand-bg rounded-full"></span>
+                        <span class="w-8 h-8 brand-bg rounded-full"></span>
+                        <span class="w-8 h-8 brand-bg rounded-full"></span>
+                        <span class="w-8 h-8 brand-bg rounded-full"></span>
+                        <span class="w-8 h-8 brand-bg rounded-full"></span>
+                        <span class="w-8 h-8 bg-gray-200 rounded-full"></span>
+                        <span class="w-8 h-8 bg-gray-200 rounded-full"></span>
+                        <span class="w-8 h-8 bg-gray-200 rounded-full"></span>
+                        <span class="w-8 h-8 bg-gray-200 rounded-full"></span>
+                    </div>
+                    <p class="text-gray-500">6 em cada 10 pessoas pesquisam móveis online antes da compra.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="cliente" class="py-12 md:py-16 mt-16">
+            <div class="text-center mb-12 px-4">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800">Raio-X do Cliente Moderno da Moma</h3>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+                   Entender como seu cliente pensa e o que ele valoriza é o segredo para vender mais. Nossa pesquisa revela os fatores-chave na decisão de compra.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                     <h4 class="text-xl font-semibold text-gray-700 mb-4 text-center">O que mais importa na escolha?</h4>
+                     <div class="chart-container">
+                        <canvas id="customerPrioritiesChart"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h4 class="text-lg font-semibold brand-heading">Estilo de Vida, não apenas um Móvel</h4>
+                        <p class="text-gray-600 mt-2">Para 76% dos consumidores, os móveis refletem sua personalidade. A Moma vende design e exclusividade, um lar que é a "sua cara".</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h4 class="text-lg font-semibold brand-heading">Qualidade Justifica o Preço</h4>
+                        <p class="text-gray-600 mt-2">Um público exigente prioriza qualidade do material e durabilidade. O marketing deve destacar os diferenciais que fazem o produto valer o investimento.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h4 class="text-lg font-semibold brand-heading">A Jornada Começa no Digital</h4>
+                        <p class="text-gray-600 mt-2">Quase 70% dos clientes pesquisam intensamente online antes de visitar uma loja física. Uma presença digital forte não é uma opção, é o ponto de partida.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="jornada" class="py-12 md:py-16 mt-16 bg-white rounded-xl shadow-lg">
+            <div class="text-center mb-12 px-4">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800">A Jornada de Compra em 3 Passos</h3>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+                    Vamos guiar seu cliente do primeiro "clique" até a entrega do móvel, construindo desejo e confiança em cada etapa do caminho.
+                </p>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center border-b-2 border-gray-200 mb-8">
+                <button data-step="1" class="journey-tab flex-1 text-center font-semibold p-4 border-b-4 border-transparent text-gray-500 hover:bg-gray-50 transition-colors active">Passo 1: Inspiração</button>
+                <button data-step="2" class="journey-tab flex-1 text-center font-semibold p-4 border-b-4 border-transparent text-gray-500 hover:bg-gray-50 transition-colors">Passo 2: Confiança</button>
+                <button data-step="3" class="journey-tab flex-1 text-center font-semibold p-4 border-b-4 border-transparent text-gray-500 hover:bg-gray-50 transition-colors">Passo 3: Conversão</button>
+            </div>
+            <div id="journey-content" class="px-6 md:px-10">
+                <!-- Content will be injected by JS -->
+            </div>
+        </section>
+
+        <section id="plano" class="py-12 md:py-16 mt-16">
+            <div class="text-center mb-12 px-4">
+                <h3 class="text-2xl md:text-3xl font-bold text-gray-800">Plano de Ação Prático para o Crescimento</h3>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-600">
+                   Sugerimos um crescimento em fases para garantir que cada real investido traga o máximo de retorno. Selecione uma fase para ver os detalhes.
+                </p>
+            </div>
+            <div class="flex justify-center space-x-2 md:space-x-4 mb-10">
+                <button data-phase="1" class="phase-button text-sm md:text-base font-semibold px-4 py-2 md:px-6 md:py-3 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-300 active">Fase 1: Fundação</button>
+                <button data-phase="2" class="phase-button text-sm md:text-base font-semibold px-4 py-2 md:px-6 md:py-3 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-300">Fase 2: Expansão</button>
+                <button data-phase="3" class="phase-button text-sm md:text-base font-semibold px-4 py-2 md:px-6 md:py-3 rounded-full bg-white shadow-md hover:shadow-lg transition-all duration-300">Fase 3: Dominação</button>
+            </div>
+            <div id="plan-content" class="bg-white rounded-xl shadow-lg p-6 md:p-10 transition-opacity duration-500">
+                <!-- Content will be injected by JS -->
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-white mt-16 border-t">
+        <div class="container mx-auto py-8 px-6 text-center">
+            <h4 class="text-2xl font-bold brand-heading">Pronto para Começar?</h4>
+            <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A Moma já tem um produto de alta qualidade e uma marca forte. O que falta é a ponte que conecta seu produto incrível aos milhares de clientes que o procuram todos os dias. Nós construímos essa ponte.</p>
+            <button class="mt-8 brand-bg text-white font-bold py-3 px-8 rounded-full hover:opacity-90 transition-opacity shadow-lg">Agendar uma Conversa</button>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const statsData = {
+                growth: 12.1,
+                revenue: 91.5
+            };
+
+            const journeyData = {
+                1: {
+                    title: "Despertar o Desejo (Inspiração)",
+                    description: "Nesta fase, o cliente ainda não sabe o que quer, ele busca inspiração. O objetivo é fazê-lo pensar: 'Eu quero uma casa assim'.",
+                    action: "Usar o <strong>Instagram e o Pinterest</strong> como uma vitrine de sonhos. Publicaremos fotos e vídeos de ambientes reais decorados com móveis da Moma, tours virtuais e dicas de decoração."
+                },
+                2: {
+                    title: "Ajudar na Escolha (Confiança)",
+                    description: "Aqui, o cliente já está considerando comprar e compara opções. Precisamos mostrar que a Moma é a melhor escolha.",
+                    action: "Criar conteúdos que geram confiança. Artigos no blog como '3 dicas para escolher o sofá perfeito' ou mostrar depoimentos de clientes satisfeitos. <strong>Parcerias com arquitetos e influenciadores</strong> de decoração funcionam como um 'selo de confiança' para a marca."
+                },
+                3: {
+                    title: "Facilitar a Compra (Conversão)",
+                    description: "O cliente está pronto para comprar. Precisamos facilitar o processo e dar o empurrão final para a venda.",
+                    action: "Usar <strong>anúncios direcionados</strong> para quem já visitou o site, oferecendo um atendimento personalizado via <strong>WhatsApp</strong> para tirar dúvidas. Uma página de produto clara, com todas as medidas e detalhes, é fundamental."
+                }
+            };
+
+            const planData = {
+                1: {
+                    title: "Fase 1: A Fundação",
+                    investment: "R$ 1.000 - R$ 5.000/mês",
+                    objective: "O objetivo é validar o mercado e construir uma base sólida de seguidores e visitantes.",
+                    focus: [
+                        { platform: 'Instagram & Facebook', action: 'Anúncios locais ou regionais para atrair seguidores e visitantes para o site. Vamos impulsionar as fotos dos seus melhores projetos.' },
+                        { platform: 'Google', action: 'Anúncios para pessoas que buscam termos específicos como "poltrona de design em São Paulo", garantindo que a Moma apareça para quem já quer comprar.' }
+                    ]
+                },
+                2: {
+                    title: "Fase 2: A Expansão",
+                    investment: "R$ 5.000 - R$ 15.000/mês",
+                    objective: "Com a base validada, é hora de acelerar o crescimento e profissionalizar a comunicação.",
+                    focus: [
+                        { platform: 'Otimização de Canais', action: 'Aumentar o investimento nos canais que já dão resultado e começar a criar vídeos e materiais mais profissionais.' },
+                        { platform: 'E-mail Marketing', action: 'Iniciaremos um trabalho de e-mail marketing para manter contato com quem já comprou ou demonstrou interesse, nutrindo o relacionamento.' }
+                    ]
+                },
+                3: {
+                    title: "Fase 3: A Dominação",
+                    investment: "> R$ 20.000/mês",
+                    objective: "Transformar a Moma em uma referência nacional no seu nicho, automatizando processos.",
+                    focus: [
+                        { platform: 'Novas Plataformas', action: 'Anunciar em canais de alto apelo visual como YouTube e Pinterest, famosos por design de interiores.' },
+                        { platform: 'Parcerias Estratégicas', action: 'Fazer parcerias com grandes influenciadores e automatizar o marketing para criar uma experiência de compra totalmente personalizada.' }
+                    ]
+                }
+            };
+
+            function animateStat(element, finalValue, isCurrency, isPercent) {
+                let start = 0;
+                const duration = 1500;
+                const stepTime = Math.abs(Math.floor(duration / finalValue));
+                
+                const timer = setInterval(() => {
+                    start += 1;
+                    let text = `R$ ${start.toFixed(1).replace('.',',')} bi`;
+                    if(isPercent) text = `${start.toFixed(1).replace('.',',')}%`;
+
+                    element.textContent = text;
+                    if (start >= finalValue) {
+                        clearInterval(timer);
+                    }
+                }, stepTime > 0 ? stepTime : 1);
+            }
+            
+            const growthElement = document.getElementById('growth-stat');
+            const revenueElement = document.getElementById('revenue-stat');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateStat(growthElement, statsData.growth, false, true);
+                        animateStat(revenueElement, statsData.revenue, true, false);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(document.getElementById('oportunidade'));
+
+
+            const prioritiesCtx = document.getElementById('customerPrioritiesChart').getContext('2d');
+            new Chart(prioritiesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Design/Personalidade (76%)', 'Qualidade do Material (36%)', 'Durabilidade (29%)'],
+                    datasets: [{
+                        data: [76, 36, 29],
+                        backgroundColor: ['#A97C50', '#D3B89E', '#EAE0D5'],
+                        borderColor: '#F8F7F4',
+                        borderWidth: 4,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: '#4A4A4A',
+                            titleFont: { size: 16 },
+                            bodyFont: { size: 14 }
+                        }
+                    }
+                }
+            });
+
+            const journeyTabs = document.querySelectorAll('.journey-tab');
+            const journeyContent = document.getElementById('journey-content');
+
+            function updateJourneyContent(step) {
+                const data = journeyData[step];
+                journeyContent.innerHTML = `
+                    <div class="text-center transition-opacity duration-500 animate-fade-in">
+                        <h4 class="text-xl md:text-2xl font-bold brand-heading mb-3">${data.title}</h4>
+                        <p class="text-gray-600 mb-4 max-w-2xl mx-auto">${data.description}</p>
+                        <div class="bg-gray-50 p-6 rounded-lg text-left inline-block">
+                           <p class="text-gray-700">${data.action}</p>
+                        </div>
+                    </div>
+                `;
+                journeyTabs.forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.step === step);
+                });
+            }
+
+            journeyTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    updateJourneyContent(tab.dataset.step);
+                });
+            });
+            
+            updateJourneyContent('1');
+            
+            const phaseButtons = document.querySelectorAll('.phase-button');
+            const planContent = document.getElementById('plan-content');
+            
+            function updatePlanContent(phase) {
+                const data = planData[phase];
+                let focusHtml = data.focus.map(item => `
+                    <div class="mb-4">
+                        <h6 class="font-bold brand-heading">${item.platform}</h6>
+                        <p class="text-gray-600">${item.action}</p>
+                    </div>
+                `).join('');
+
+                planContent.innerHTML = `
+                    <div class="transition-opacity duration-500 animate-fade-in">
+                        <h4 class="text-xl md:text-2xl font-bold text-gray-800 mb-2">${data.title}</h4>
+                        <p class="text-lg font-semibold brand-bg-light text-gray-700 inline-block px-3 py-1 rounded-md mb-4">Investimento: ${data.investment}</p>
+                        <p class="text-gray-600 mb-6">${data.objective}</p>
+                        <div class="border-t pt-6">${focusHtml}</div>
+                    </div>
+                `;
+                 phaseButtons.forEach(button => {
+                    button.classList.toggle('active', button.dataset.phase === phase);
+                });
+            }
+
+            phaseButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    updatePlanContent(button.dataset.phase);
+                });
+            });
+
+            updatePlanContent('1');
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -70% 0px' });
+            
+            sections.forEach(section => sectionObserver.observe(section));
+
+            document.head.insertAdjacentHTML("beforeend", `<style>
+                @keyframes fade-in { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+                .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
+            </style>`);
+
+        });
+    </script>
+</body>
+</html>
