@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Script - Prospecção Evo4</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #0066ff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 25px;
+    }
+
+    #resultado {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px #ccc;
+      white-space: pre-line;
+    }
+
+    .copiar {
+      background-color: #28a745;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gerador de Script de Prospecção Evo4</h1>
+
+  <label for="nicho">Nicho:</label>
+  <input type="text" id="nicho" placeholder="Ex: móveis planejados">
+
+  <label for="cidade">Cidade:</label>
+  <input type="text" id="cidade" placeholder="Ex: São Paulo">
+
+  <label for="empresa">Nome da Empresa:</label>
+  <input type="text" id="empresa" placeholder="Ex: Planejados Ideal">
+
+  <label for="dor">Principal dificuldade ou dor:</label>
+  <input type="text" id="dor" placeholder="Ex: gerar orçamentos de forma constante">
+
+  <button onclick="gerarMensagem()">Gerar Mensagem</button>
+
+  <div id="resultado" style="display:none;"></div>
+  <button id="btnCopiar" class="copiar" style="display:none;" onclick="copiarTexto()">Copiar Texto</button>
+
+  <script>
+    function gerarMensagem() {
+      const nicho = document.getElementById("nicho").value.trim();
+      const cidade = document.getElementById("cidade").value.trim();
+      const empresa = document.getElementById("empresa").value.trim();
+      const dor = document.getElementById("dor").value.trim();
+
+      if (!nicho || !cidade || !empresa || !dor) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+      }
+
+      const mensagem = `Olá, boa tarde tudo bem? Meu nome é Bruno, sou Gestor de Performance Comercial aqui na Evo4.
+
+Mapeando empresas do setor de ${nicho} em ${cidade}, encontrei o perfil da ${empresa} e vi que vocês já têm um bom posicionamento e uma presença ativa nas redes.
+
+Talvez você seja a pessoa responsável por essa área, talvez não — mas achei que valia o contato.
+
+Atualmente ajudo empresas como a ${empresa} a estruturar um fluxo de vendas contínuo, para vender mais com previsibilidade financeira, sem depender da sorte ou indicação.
+
+Tomei a liberdade e preparei um plano de ação personalizado para a ${empresa}, detalhando melhorias e estratégias práticas para ${dor}.
+
+Esse plano é totalmente gratuito e não gera nenhum tipo de compromisso. A gente entrega mesmo que a empresa decida não seguir com parceria agora.
+
+Posso te apresentar rapidamente — seria algo bem direto, focado nas oportunidades que identifiquei.
+
+Você teria disponibilidade essa semana para conversarmos? Caso não seja prioridade no momento, sem problema — é só me avisar e sigo com meus contatos. Desde já, obrigado pela atenção. 🙌`;
+
+      document.getElementById("resultado").innerText = mensagem;
+      document.getElementById("resultado").style.display = "block";
+      document.getElementById("btnCopiar").style.display = "inline-block";
+    }
+
+    function copiarTexto() {
+      const texto = document.getElementById("resultado").innerText;
+      navigator.clipboard.writeText(texto).then(() => {
+        alert("Texto copiado com sucesso!");
+      });
+    }
+  </script>
+
+</body>
+</html>
