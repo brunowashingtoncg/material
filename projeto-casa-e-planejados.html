@@ -267,9 +267,9 @@
             </div>
 
             <div class="card">
-                <div class="flex flex-wrap justify-center gap-4 mb-8">
-                    <button data-platform="google" class="platform-tab-button tab-button active">🎯 Google Ads</button>
-                    <button data-platform="meta" class="platform-tab-button tab-button">👍 Meta Ads</button>
+                <div id="platform-tabs" class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button data-content="google" class="platform-tab-button tab-button active">🎯 Google Ads</button>
+                    <button data-content="meta" class="platform-tab-button tab-button">👍 Meta Ads</button>
                 </div>
 
                 <div id="platform-content">
@@ -579,27 +579,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     setupTabs('diagnostico-tabs', 'diagnostico-content', 'diagnostico-tab-button', 'diagnostico-content-item');
     setupTabs('persona-tabs', 'persona-content', 'persona-tab-button', 'persona-content-item');
-    
-    const platformTabsContainer = document.querySelector('#midia .flex.justify-center');
-    const platformContents = document.getElementById('platform-content').children;
-    platformTabsContainer.addEventListener('click', function(e) {
-        if(e.target.tagName === 'BUTTON') {
-            const platform = e.target.dataset.platform;
-            
-            for (const button of platformTabsContainer.children){
-                button.classList.remove('active');
-            }
-            e.target.classList.add('active');
-
-            for (const content of platformContents) {
-                if(content.id === `content-${platform}`){
-                    content.classList.remove('hidden');
-                } else {
-                    content.classList.add('hidden');
-                }
-            }
-        }
-    });
+    setupTabs('platform-tabs', 'platform-content', 'platform-tab-button', 'platform-content-item');
     
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
