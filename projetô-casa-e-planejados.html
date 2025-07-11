@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Ação Interativo | Projetô Casa & Planejados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A dashboard-style, thematic SPA was designed to allow non-linear exploration. The structure uses a sticky navigation bar for quick access to key sections: "Diagnóstico", "Persona 360°", "Plano de Mídia", "Conteúdo & Vendas", and "Próximos Passos". This thematic grouping is more user-friendly than a linear report, enabling users (e.g., marketing manager, owner) to jump directly to the most relevant information. Key interactions include tabbed interfaces for ad platforms, accordions for detailed content, and an interactive chart for data comparison, all designed to make a dense plan digestible and engaging. -->
+    <!-- Visualization & Content Choices: Market Data (Parnamirim vs. Natal) -> Goal: Compare -> Viz: Interactive Bar Chart (Chart.js/Canvas) -> Interaction: Hover tooltips -> Justification: Best for direct comparison of quantitative data. Persona Details -> Goal: Organize/Inform -> Viz: Tabbed/Clickable Card Layout (HTML/JS) -> Interaction: Click to reveal -> Justification: Manages complexity by showing information progressively. Ad Strategies -> Goal: Organize -> Viz: Tabbed Interface -> Interaction: Switch between Google/Meta -> Justification: Cleanly separates distinct strategies. Sales Funnel -> Goal: Show Process -> Viz: Timeline Diagram (HTML/Tailwind) -> Justification: Intuitive for sequential processes. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F8F5F2;
+            color: #4A4A4A;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #C5A086;
+            border-bottom-color: #C5A086;
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #EAEAEA;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+        .btn-primary {
+            background-color: #A07D63;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #8A6B53;
+        }
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            border: 1px solid #EAEAEA;
+            background-color: #FFFFFF;
+        }
+        .tab-button.active {
+            background-color: #A07D63;
+            color: white;
+            border-color: #A07D63;
+        }
+        .accordion-header {
+            cursor: pointer;
+            padding: 1rem;
+            background-color: #F9F9F9;
+            border: 1px solid #EAEAEA;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .accordion-header:hover {
+            background-color: #F1F1F1;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 1rem;
+            border: 1px solid #EAEAEA;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        audio {
+            filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) brightness(90%);
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-[#A07D63]">Projetô<span class="text-[#4A4A4A]"> Plano de Ação</span></a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#diagnostico" class="nav-link">Diagnóstico</a>
+                <a href="#persona" class="nav-link">Persona 360°</a>
+                <a href="#midia" class="nav-link">Plano de Mídia</a>
+                <a href="#conteudo-vendas" class="nav-link">Conteúdo & Vendas</a>
+                <a href="#passos" class="nav-link">Próximos Passos</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-2xl">☰</button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-6">
+            <a href="#diagnostico" class="block py-2 nav-link">Diagnóstico</a>
+            <a href="#persona" class="block py-2 nav-link">Persona 360°</a>
+            <a href="#midia" class="block py-2 nav-link">Plano de Mídia</a>
+            <a href="#conteudo-vendas" class="block py-2 nav-link">Conteúdo & Vendas</a>
+            <a href="#passos" class="block py-2 nav-link">Próximos Passos</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section id="hero" class="text-center mb-20">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Plano de Ação de Marketing e Gestão Comercial</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Um painel interativo para guiar a <span class="font-semibold text-[#A07D63]">Projetô Casa & Planejados</span> ao sucesso em Parnamirim-RN e região.</p>
+        </section>
+
+        <section id="diagnostico" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Diagnóstico de Mercado e Oportunidades</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">A análise do mercado local revela um cenário favorável, combinando crescimento econômico e uma demanda reprimida por serviços de design profissionais. Explore as abas abaixo para entender as principais alavancas de crescimento para a Projetô.</p>
+            
+            <div class="my-8 flex justify-center">
+                <div class="w-full max-w-md bg-white/50 p-4 rounded-xl shadow-sm">
+                    <p class="text-sm font-semibold text-gray-600 mb-2 text-center">Ouça o resumo da análise de mercado:</p>
+                    <audio controls class="w-full">
+                        <source src="projetô-casa-e-planejados-mercado.mp3" type="audio/mpeg">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+            </div>
+
+            <div class="card">
+                <div id="diagnostico-tabs" class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button data-content="motor-economico" class="diagnostico-tab-button tab-button active">📈 Motor Econômico</button>
+                    <button data-content="foco-parnamirim" class="diagnostico-tab-button tab-button">📍 Foco em Parnamirim</button>
+                    <button data-content="cenario-digital" class="diagnostico-tab-button tab-button">🎯 Cenário Digital</button>
+                </div>
+
+                <div id="diagnostico-content">
+                    <div id="content-motor-economico" class="diagnostico-content-item">
+                        <h3 class="text-2xl font-bold mb-4">O Motor da Construção Civil no RN</h3>
+                        <p class="mb-4">O mercado de design de interiores está diretamente ligado à saúde do setor imobiliário. No Rio Grande do Norte, os indicadores apontam para um crescimento sustentado, criando um fluxo contínuo de "matéria-prima" para os designers: novos imóveis que precisam ser ambientados.</p>
+                        <ul class="space-y-3 list-disc list-inside">
+                            <li><strong>Crescimento e Emprego:</strong> O setor de construção no RN demonstrou uma recuperação robusta, saltando de 28 mil para mais de 42 mil postos de trabalho em dois anos, indicando forte investimento.</li>
+                            <li><strong>Impacto do Plano Diretor de Natal (PDN):</strong> A implementação do novo PDN viabilizou um número expressivo de novas construções, com 48 grandes projetos imobiliários em andamento na capital, concentrados em bairros de alto poder aquisitivo (Tirol, Petrópolis, Ponta Negra).</li>
+                            <li><strong>Dualidade do Mercado:</strong> O boom imobiliário se manifesta em dois segmentos: empreendimentos de médio e alto padrão em Natal e um crescimento impressionante de imóveis do padrão econômico (MCMV) em cidades metropolitanas como Parnamirim. Essa dualidade exige ofertas de serviço distintas e segmentadas.</li>
+                        </ul>
+                    </div>
+                    <div id="content-foco-parnamirim" class="diagnostico-content-item hidden">
+                        <h3 class="text-2xl font-bold mb-4">Parnamirim: O Epicentro do Crescimento</h3>
+                        <p class="mb-4">Parnamirim deixou de ser uma 'cidade-dormitório' para se tornar um município com dinamismo próprio, representando um mercado de alta relevância para serviços de valor agregado como o design de interiores.</p>
+                        <ul class="space-y-3 list-disc list-inside mb-6">
+                            <li><strong>Crescimento Econômico:</strong> A cidade registrou um crescimento nominal do PIB de 632% em uma década e possui um PIB per capita (R$ 25,1 mil) superior à média do estado e da própria capital.</li>
+                            <li><strong>Perfil Social Elevado:</strong> Parnamirim detém o maior Índice de Desenvolvimento Humano (IDHM) do estado (0,766) e uma taxa de alfabetização de 94,91%, indicando uma população mais informada e exigente.</li>
+                            <li><strong>Fator "Orgulho Local":</strong> A combinação de crescimento, renda e escolaridade gera um consumidor que deseja investir em seu lar como símbolo de status e bem-estar, buscando projetos que reflitam suas conquistas.</li>
+                        </ul>
+                         <h4 class="text-xl font-bold text-center mb-6">Comparativo de Indicadores: Parnamirim vs. Natal</h4>
+                        <div class="chart-container">
+                            <canvas id="marketChart"></canvas>
+                        </div>
+                    </div>
+                    <div id="content-cenario-digital" class="diagnostico-content-item hidden">
+                        <h3 class="text-2xl font-bold mb-4">A Oportunidade no Cenário Digital</h3>
+                        <p class="mb-4">A maior brecha de mercado não está no serviço em si, mas na forma como ele é comercializado online. A análise da concorrência e do consumidor revela uma clara oportunidade estratégica.</p>
+                        <ul class="space-y-3 list-disc list-inside">
+                            <li><strong>Concorrência Passiva:</strong> A maioria dos escritórios e profissionais locais utiliza o Instagram e sites como portfólios visuais estáticos. Faltam-lhes estratégias proativas de marketing, como funis de venda, iscas digitais ou campanhas de tráfego pago segmentadas.</li>
+                            <li><strong>Jornada do Consumidor Inspiracional:</strong> A busca por um projeto começa no ambiente visual do Pinterest e Instagram Reels, onde os usuários procuram inspiração ("decoração rústica", "estilo Japandi", "antes e depois").</li>
+                            <li><strong>Jornada do Consumidor Transacional:</strong> Quando a necessidade se torna concreta, o consumidor migra para o Google, buscando ativamente por termos como "arquiteto em Parnamirim", "designer de interiores Natal RN" e "orçamento móveis planejados".</li>
+                            <li><strong>A Estratégia Vencedora:</strong> Orquestrar a presença da Projetô em todos esses pontos de contato, desde a inspiração inicial até a busca ativa, para capturar o cliente em todas as fases de sua jornada de decisão.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="persona" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Persona 360°: Conhecendo "Juliana Mello"</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Toda a nossa comunicação será direcionada a ela. Entender profundamente suas dores, desejos e medos é o segredo para criar uma mensagem que ressoa e converte.</p>
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/3">
+                    <div class="card h-full">
+                        <h3 class="text-2xl font-bold mb-4">Perfil da Cliente Ideal</h3>
+                        <img src="https://placehold.co/400x400/C5A086/FFFFFF?text=J" alt="Foto da Persona Juliana" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
+                        <p class="text-xl font-semibold text-center">Juliana Mello</p>
+                        <p class="text-center text-gray-500 mb-4">34-45 anos, Parnamirim-RN</p>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><strong>💼 Profissão:</strong> Arquiteta / Gerente de Projetos.</li>
+                            <li><strong>👪 Família:</strong> Casada, mãe, rotina agitada.</li>
+                            <li><strong>💡 Valoriza:</strong> Estética e funcionalidade.</li>
+                            <li><strong>🎯 Problema Central:</strong> As soluções prontas do mercado a frustram.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:w-2/3">
+                    <div class="card h-full">
+                        <div id="persona-tabs" class="flex flex-wrap gap-2 mb-6">
+                            <button data-content="dores" class="persona-tab-button tab-button active">Dores & Medos</button>
+                            <button data-content="desejos" class="persona-tab-button tab-button">Desejos</button>
+                            <button data-content="objecoes" class="persona-tab-button tab-button">Objeções</button>
+                        </div>
+                        <div id="persona-content">
+                            <div id="content-dores" class="persona-content-item">
+                                <h4 class="text-xl font-bold mb-4">As frustrações que a impedem de agir</h4>
+                                <ul class="list-disc list-inside space-y-3">
+                                    <li><strong>Falta de tempo</strong> para pesquisar fornecedores e gerenciar o projeto.</li>
+                                    <li><strong>Medo de investir alto</strong> e não gostar do resultado final ou se arrepender.</li>
+                                    <li><strong>Insegurança</strong> com fornecedores que podem atrasar ou entregar um serviço de má qualidade.</li>
+                                    <li><strong>Frustração</strong> com a desorganização e ambientes que não refletem sua personalidade.</li>
+                                    <li><strong>Ansiedade</strong> por não conseguir concretizar a "casa dos sonhos" que ela vê como ideal.</li>
+                                </ul>
+                            </div>
+                            <div id="content-desejos" class="persona-content-item hidden">
+                                 <h4 class="text-xl font-bold mb-4">O que ela realmente quer alcançar</h4>
+                                <ul class="list-disc list-inside space-y-3">
+                                    <li>Sentir <strong>orgulho</strong> e alívio ao entrar em sua casa todos os dias.</li>
+                                    <li>Ter um ambiente <strong>prático, bonito e acolhedor</strong> para sua família.</li>
+                                    <li><strong>Receber elogios</strong> de amigos e visitas, validando seu bom gosto.</li>
+                                    <li>Contar com uma <strong>equipe de especialistas</strong> que entenda suas ideias e cuide de tudo, tirando o peso de seus ombros.</li>
+                                    <li>Ver cada canto da casa com um <strong>toque pessoal</strong>, que conte sua história.</li>
+                                </ul>
+                            </div>
+                            <div id="content-objecoes" class="persona-content-item hidden">
+                                <h4 class="text-xl font-bold mb-4">As barreiras que precisamos quebrar</h4>
+                                <ul class="list-disc list-inside space-y-3">
+                                    <li><em>"Vai sair <strong>muito caro</strong> fazer tudo sob medida."</em></li>
+                                    <li><em>"E se eu <strong>não gostar</strong> do resultado final?"</em></li>
+                                    <li><em>"Vai <strong>demorar muito</strong> e tomar todo o meu tempo."</em></li>
+                                    <li><em>"Não entendo nada de decoração, tenho medo de <strong>ser enganada</strong>."</em></li>
+                                    <li><em>"Decoração sob medida é <strong>coisa de gente rica</strong>."</em></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="midia" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Plano de Mídia: Anúncios que Convertem</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Nossa estratégia de anúncios é dividida em duas frentes: capturar quem já está buscando (Google) e despertar o desejo em quem tem potencial (Meta).</p>
+            
+            <div class="my-8 flex justify-center">
+                <div class="w-full max-w-md bg-white/50 p-4 rounded-xl shadow-sm">
+                    <p class="text-sm font-semibold text-gray-600 mb-2 text-center">Ouça o resumo do plano de mídia:</p>
+                    <audio controls class="w-full">
+                        <source src="projetô-casa-e-planejados-midia.mp3" type="audio/mpeg">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex flex-wrap justify-center gap-4 mb-8">
+                    <button data-platform="google" class="platform-tab-button tab-button active">🎯 Google Ads</button>
+                    <button data-platform="meta" class="platform-tab-button tab-button">👍 Meta Ads</button>
+                </div>
+
+                <div id="platform-content">
+                    <div id="content-google" class="platform-content-item">
+                        <h3 class="text-2xl font-bold mb-6 text-center">Capturando a Demanda Ativa</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h4 class="font-bold text-lg mb-2">Palavras-chave de Ouro (Foco)</h4>
+                                <ul class="bg-gray-50 p-4 rounded-lg list-disc list-inside">
+                                    <li>móveis sob medida para cozinha</li>
+                                    <li>consultar decorador Parnamirim</li>
+                                    <li>contratar projeto de interiores</li>
+                                    <li>decoração sob medida para quarto</li>
+                                    <li>orçamento móveis personalizados</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h4 class="font-bold text-lg mb-2">Palavras-chave a Negativar</h4>
+                                <ul class="bg-gray-50 p-4 rounded-lg list-disc list-inside">
+                                    <li>móveis baratos / decoração barata</li>
+                                    <li>móveis prontos / armários padrão</li>
+                                    <li>DIY decoração / ideias baratas</li>
+                                    <li>móveis usados / de fábrica</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                             <h4 class="font-bold text-lg mb-4 text-center">Exemplo de Anúncio Vencedor</h4>
+                             <div class="border-2 border-dashed border-gray-300 p-6 rounded-lg">
+                                 <h5 class="text-blue-700 text-xl font-medium">Móveis Sob Medida em Parnamirim - Projetô</h5>
+                                 <p class="text-green-700 text-sm">www.projetocasa.com.br/orcamento</p>
+                                 <p class="mt-2">Transforme seu lar com um design exclusivo e funcional. Chega de móveis que não cabem! Atendimento completo do projeto à entrega. Peça seu orçamento personalizado hoje.</p>
+                                  <div class="mt-4">
+                                     <p class="font-semibold"><strong>Destaques:</strong> Projetos Personalizados • Garantia na Entrega • Design Exclusivo</p>
+                                     <p class="font-semibold"><strong>Contato:</strong> (84) 9 XXXX-XXXX (WhatsApp)</p>
+                                 </div>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div id="content-meta" class="platform-content-item hidden">
+                        <h3 class="text-2xl font-bold mb-6 text-center">Despertando o Desejo e a Autoridade</h3>
+                        <div class="space-y-4">
+                            <div class="accordion-item">
+                                <div class="accordion-header flex justify-between items-center">
+                                    <span class="font-semibold">Roteiro 1: Gancho de Pergunta Direta</span>
+                                    <span class="text-xl transform transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content">
+                                    <p class="py-4"><strong>Gancho:</strong> "Você já investiu em móveis ou decoração… e se arrependeu logo depois?"<br><strong>Corpo:</strong> "Se isso já aconteceu, calma. A maioria das nossas clientes passou por isso antes de ter um lar funcional e com personalidade. Fazemos tudo sob medida, com foco total em praticidade."<br><strong>CTA:</strong> "Clique aqui, mande uma mensagem e deixe a gente transformar sua casa."</p>
+                                </div>
+                            </div>
+                             <div class="accordion-item">
+                                <div class="accordion-header flex justify-between items-center">
+                                    <span class="font-semibold">Roteiro 2: Gancho de História</span>
+                                    <span class="text-xl transform transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content">
+                                    <p class="py-4"><strong>Gancho:</strong> "Juliana comprou uma mesa linda... mas esqueceu de medir o elevador."<br><strong>Corpo:</strong> "Ela tentou fazer tudo sozinha e só se estressou. Depois que contratou nosso serviço, hoje tem orgulho da casa e tranquilidade. Nós cuidamos de tudo para você."<br><strong>CTA:</strong> "Quer decorar sem arrependimentos? Clique no botão e fale com a gente."</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header flex justify-between items-center">
+                                    <span class="font-semibold">Roteiro 3: Gancho Segmentado</span>
+                                    <span class="text-xl transform transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content">
+                                    <p class="py-4"><strong>Gancho:</strong> "Esse vídeo é pra você que é mãe, trabalha muito e sonha com uma casa linda pra sua família."<br><strong>Corpo:</strong> "Falta tempo, né? A gente resolve isso pra você. Do projeto à execução. Você só entra, respira e sente orgulho do seu lar."<br><strong>CTA:</strong> "Clique aqui embaixo e vamos te ajudar."</p>
+                                </div>
+                            </div>
+                             <div class="accordion-item">
+                                <div class="accordion-header flex justify-between items-center">
+                                    <span class="font-semibold">Roteiro 4: Gancho de Quebra de Objeção</span>
+                                    <span class="text-xl transform transition-transform duration-300">▼</span>
+                                </div>
+                                <div class="accordion-content">
+                                    <p class="py-4"><strong>Gancho:</strong> "Móveis sob medida são mais caros? Depende..."<br><strong>Corpo:</strong> "Trocar móveis prontos a cada dois anos porque não serviram ou perderam a qualidade sai muito mais caro. Decoração inteligente é um investimento, não um custo."<br><strong>CTA:</strong> "Fale com a gente clicando no botão."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conteudo-vendas" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Conteúdo & Vendas: O Ciclo de Confiança</h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Atrair leads é o começo. O conteúdo certo nutre o relacionamento e um processo de vendas organizado transforma interesse em contrato.</p>
+            
+            <div class="card mb-12">
+                <h3 class="text-2xl font-bold mb-6 text-center">Marketing de Conteúdo: O Método RETINA</h3>
+                <div class="space-y-4">
+                    <div class="accordion-item">
+                        <div class="accordion-header flex justify-between items-center"><span class="font-semibold">👍 Relacionamento</span><span class="text-xl transform transition-transform duration-300">▼</span></div>
+                        <div class="accordion-content"><div class="py-4 space-y-2"><p><strong>Título:</strong> O Dia que a Casa da Juliana Mudou Tudo</p><p><strong>Formato:</strong> Reels (até 90s)</p><p><strong>Roteiro:</strong> Contar a história da Juliana, mostrando o "antes" (caos, frustração com móveis que não cabem) e o "depois" (lar funcional, bonito, com a cara dela). Focar na transformação emocional, não apenas estética.</p></div></div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header flex justify-between items-center"><span class="font-semibold">🌟 Engajamento</span><span class="text-xl transform transition-transform duration-300">▼</span></div>
+                        <div class="accordion-content"><div class="py-4 space-y-2"><p><strong>Título:</strong> Top 5 Erros que Acabam com a Decoração da Sua Casa</p><p><strong>Formato:</strong> Carrossel</p><p><strong>Conteúdo:</strong> Card 1: Erro 1: Comprar por impulso. Card 2: Erro 2: Cortinas no tamanho errado. Card 3: Erro 3: Tapete pequeno demais... e no final, apresentar a solução: "Planejar com quem entende".</p></div></div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header flex justify-between items-center"><span class="font-semibold">⚖️ Transformação</span><span class="text-xl transform transition-transform duration-300">▼</span></div>
+                        <div class="accordion-content"><div class="py-4 space-y-2"><p><strong>Título:</strong> Como um Projeto Sob Medida Economizou R$12.500 para uma Cliente</p><p><strong>Formato:</strong> Vídeo (até 3 min)</p><p><strong>Roteiro:</strong> Contar a história de uma cliente que gastou dinheiro com soluções prontas e retrabalho, e como o projeto sob medida, apesar do investimento inicial, gerou economia a longo prazo.</p></div></div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header flex justify-between items-center"><span class="font-semibold">🧠 Interação 1x1</span><span class="text-xl transform transition-transform duration-300">▼</span></div>
+                        <div class="accordion-content"><div class="py-4 space-y-2"><p><strong>Título:</strong> Qual desses erros de decoração você já cometeu?</p><p><strong>Formato:</strong> Stories com Enquete + Caixa de Pergunta</p><p><strong>Roteiro:</strong> Story 1: Enquete "Você já comprou algo pra casa por impulso?". Story 2: Caixa de pergunta "Qual foi o maior mico que você já pagou tentando decorar?". Repostar as melhores histórias para gerar conexão.</p></div></div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header flex justify-between items-center"><span class="font-semibold">🧐 Níveis de Consciência</span><span class="text-xl transform transition-transform duration-300">▼</span></div>
+                        <div class="accordion-content"><div class="py-4 space-y-2"><p><strong>Título:</strong> Como Saber se Você Precisa de Móveis Sob Medida</p><p><strong>Formato:</strong> Carrossel</p><p><strong>Conteúdo:</strong> Listar sinais claros que indicam a necessidade de um projeto personalizado (ex: "Seus espaços são mal aproveitados?", "Você se frustra com móveis que não cabem?").</p></div></div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header flex justify-between items-center"><span class="font-semibold">📚 Autoridade</span><span class="text-xl transform transition-transform duration-300">▼</span></div>
+                        <div class="accordion-content"><div class="py-4 space-y-2"><p><strong>Título:</strong> Antes e Depois que Provam que Móvel Sob Medida Muda Tudo</p><p><strong>Formato:</strong> Carrossel de Imagens/Vídeos</p><p><strong>Conteúdo:</strong> Foco total em imagens de alta qualidade de projetos reais, mostrando a transformação prática do espaço e o impacto na vida do cliente.</p></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="text-2xl font-bold mb-8 text-center">Gestão Comercial: A Jornada de Follow-up</h3>
+                 <div class="relative">
+                    <div class="absolute left-1/2 h-full w-0.5 bg-gray-200 hidden md:block"></div>
+                    <div class="space-y-12">
+                        <div class="md:flex items-center md:space-x-8">
+                            <div class="md:w-1/2"></div>
+                            <div class="md:w-1/2 p-4 bg-white rounded-lg border-l-4 border-[#C5A086] shadow-md">
+                                <p class="font-bold">Dia 0: Resposta Imediata</p>
+                                <p class="text-sm text-gray-600">O lead recebe uma confirmação automática e o material prometido (se houver).</p>
+                            </div>
+                        </div>
+                        <div class="md:flex flex-row-reverse items-center md:space-x-8 md:space-x-reverse">
+                            <div class="md:w-1/2"></div>
+                            <div class="md:w-1/2 p-4 bg-white rounded-lg border-r-4 md:border-r-0 md:border-l-4 border-[#C5A086] shadow-md">
+                                <p class="font-bold">Dia 1: Qualificação Humana</p>
+                                <p class="text-sm text-gray-600">Contato via WhatsApp para entender a necessidade, urgência e potencial do cliente.</p>
+                            </div>
+                        </div>
+                        <div class="md:flex items-center md:space-x-8">
+                            <div class="md:w-1/2"></div>
+                             <div class="md:w-1/2 p-4 bg-white rounded-lg border-l-4 border-[#C5A086] shadow-md">
+                                <p class="font-bold">Dia 3: Nutrição com Valor</p>
+                                <p class="text-sm text-gray-600">Envio de um case de sucesso ou um projeto relevante do portfólio.</p>
+                            </div>
+                        </div>
+                        <div class="md:flex flex-row-reverse items-center md:space-x-8 md:space-x-reverse">
+                             <div class="md:w-1/2"></div>
+                             <div class="md:w-1/2 p-4 bg-white rounded-lg border-r-4 md:border-r-0 md:border-l-4 border-[#C5A086] shadow-md">
+                                <p class="font-bold">Dia 7: Convite à Ação</p>
+                                <p class="text-sm text-gray-600">Convite para uma conversa rápida ou consultoria gratuita para aprofundar a conversa.</p>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section id="passos" class="text-center">
+             <h2 class="text-3xl font-bold text-center mb-4">Próximos Passos Recomendados</h2>
+             <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Para colocar este plano em prática, sugerimos uma abordagem faseada e focada.</p>
+             <div class="max-w-2xl mx-auto text-left space-y-4">
+                 <div class="bg-white p-4 rounded-lg flex items-start space-x-4 shadow-sm">
+                     <input type="checkbox" class="mt-1 h-5 w-5 text-[#A07D63] focus:ring-[#A07D63] border-gray-300 rounded">
+                     <div>
+                         <h4 class="font-bold">Criar a Landing Page</h4>
+                         <p class="text-sm text-gray-600">Desenvolver a página de destino focada em conversão, com formulário, botão de WhatsApp e provas sociais.</p>
+                     </div>
+                 </div>
+                 <div class="bg-white p-4 rounded-lg flex items-start space-x-4 shadow-sm">
+                     <input type="checkbox" class="mt-1 h-5 w-5 text-[#A07D63] focus:ring-[#A07D63] border-gray-300 rounded">
+                      <div>
+                         <h4 class="font-bold">Configurar Contas de Anúncio</h4>
+                         <p class="text-sm text-gray-600">Configurar Google Ads e Meta Ads, instalando todos os pixels de rastreamento necessários.</p>
+                     </div>
+                 </div>
+                 <div class="bg-white p-4 rounded-lg flex items-start space-x-4 shadow-sm">
+                     <input type="checkbox" class="mt-1 h-5 w-5 text-[#A07D63] focus:ring-[#A07D63] border-gray-300 rounded">
+                      <div>
+                         <h4 class="font-bold">Iniciar com Orçamento Controlado</h4>
+                         <p class="text-sm text-gray-600">Lançar as campanhas iniciais com verba menor para testar, validar e otimizar.</p>
+                     </div>
+                 </div>
+                 <div class="bg-white p-4 rounded-lg flex items-start space-x-4 shadow-sm">
+                     <input type="checkbox" class="mt-1 h-5 w-5 text-[#A07D63] focus:ring-[#A07D63] border-gray-300 rounded">
+                      <div>
+                         <h4 class="font-bold">Produzir Conteúdo Inicial</h4>
+                         <p class="text-sm text-gray-600">Planejar e criar os primeiros posts do Instagram seguindo o método RETINA.</p>
+                     </div>
+                 </div>
+                 <div class="bg-white p-4 rounded-lg flex items-start space-x-4 shadow-sm">
+                     <input type="checkbox" class="mt-1 h-5 w-5 text-[#A07D63] focus:ring-[#A07D63] border-gray-300 rounded">
+                      <div>
+                         <h4 class="font-bold">Estruturar o Processo Comercial</h4>
+                         <p class="text-sm text-gray-600">Definir o roteiro de qualificação e as ferramentas (WhatsApp Business, CRM) para o follow-up.</p>
+                     </div>
+                 </div>
+             </div>
+        </section>
+    </main>
+
+    <footer class="bg-white mt-20">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 Projetô Casa & Planejados. Plano de Ação Estratégico.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const marketData = {
+        labels: ['PIB per capita (R$)', 'IDH (Índice)', 'Taxa de Alfabetização (%)'],
+        datasets: [
+            {
+                label: 'Parnamirim',
+                data: [25100, 0.766 * 10000, 94.91],
+                backgroundColor: 'rgba(160, 125, 99, 0.7)',
+                borderColor: 'rgba(160, 125, 99, 1)',
+                borderWidth: 1,
+                borderRadius: 5,
+            },
+            {
+                label: 'Natal (Capital)',
+                data: [23700, 0.763 * 10000, 93.60],
+                backgroundColor: 'rgba(200, 200, 200, 0.7)',
+                borderColor: 'rgba(150, 150, 150, 1)',
+                borderWidth: 1,
+                borderRadius: 5,
+            }
+        ]
+    };
+
+    const marketChartCtx = document.getElementById('marketChart').getContext('2d');
+    if (window.marketChart instanceof Chart) {
+        window.marketChart.destroy();
+    }
+    window.marketChart = new Chart(marketChartCtx, {
+        type: 'bar',
+        data: marketData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                },
+                x: {
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            let value = context.raw;
+                            if (context.label === 'PIB per capita (R$)') {
+                                label += 'R$ ' + value.toLocaleString('pt-BR');
+                            } else if (context.label === 'IDH (Índice)') {
+                                label += (value/10000).toFixed(3);
+                            } else {
+                                 label += value.toFixed(2) + '%';
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const setupTabs = (tabsContainerId, contentsContainerId, buttonClass, contentClass) => {
+        const tabsContainer = document.getElementById(tabsContainerId);
+        const contents = document.getElementById(contentsContainerId).children;
+        tabsContainer.addEventListener('click', function (e) {
+            if (e.target.closest(`.${buttonClass}`)) {
+                const button = e.target.closest(`.${buttonClass}`);
+                const contentId = 'content-' + button.dataset.content;
+                
+                for (const btn of tabsContainer.querySelectorAll(`.${buttonClass}`)) {
+                    btn.classList.remove('active');
+                }
+                button.classList.add('active');
+
+                for (const content of contents) {
+                    if (content.id === contentId) {
+                        content.classList.remove('hidden');
+                    } else {
+                        content.classList.add('hidden');
+                    }
+                }
+                
+                if (contentId === 'content-foco-parnamirim' && window.marketChart) {
+                    setTimeout(() => window.marketChart.resize(), 0);
+                }
+            }
+        });
+    };
+    
+    setupTabs('diagnostico-tabs', 'diagnostico-content', 'diagnostico-tab-button', 'diagnostico-content-item');
+    setupTabs('persona-tabs', 'persona-content', 'persona-tab-button', 'persona-content-item');
+    
+    const platformTabsContainer = document.querySelector('#midia .flex.justify-center');
+    const platformContents = document.getElementById('platform-content').children;
+    platformTabsContainer.addEventListener('click', function(e) {
+        if(e.target.tagName === 'BUTTON') {
+            const platform = e.target.dataset.platform;
+            
+            for (const button of platformTabsContainer.children){
+                button.classList.remove('active');
+            }
+            e.target.classList.add('active');
+
+            for (const content of platformContents) {
+                if(content.id === `content-${platform}`){
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            }
+        }
+    });
+    
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('span:last-child');
+            
+            header.parentElement.classList.toggle('open');
+
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                content.style.padding = '0 1rem';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                content.style.padding = '1rem';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        });
+    });
+
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('#mobile-menu a, .nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            if (link.closest('#mobile-menu')) {
+                 mobileMenu.classList.add('hidden');
+            }
+            const targetId = new URL(link.href).hash;
+            if (document.querySelector(targetId)) {
+                e.preventDefault();
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main section[id]');
+
+    function changeNavOnScroll() {
+        let index = sections.length;
+
+        while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+        
+        navLinks.forEach((link) => link.classList.remove('active'));
+        
+        const activeLink = document.querySelector(`.nav-link[href="#${sections[index].id}"]`);
+        if(activeLink){
+            activeLink.classList.add('active');
+        }
+    }
+    
+    changeNavOnScroll();
+    window.addEventListener('scroll', changeNavOnScroll);
+});
+</script>
+
+</body>
+</html>
