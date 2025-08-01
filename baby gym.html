@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Ação Estratégico Detalhado - Baby Gym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #4F46E5, #9333EA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-icon {
+            background: linear-gradient(to bottom right, #6366F1, #A855F7);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        [x-cloak] { display: none !important; }
+        audio {
+            width: 100%;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header e Navegação -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-extrabold">
+                <span class="gradient-text">Baby Gym</span>
+            </div>
+            <div class="hidden md:flex space-x-6 text-gray-600 font-medium">
+                <a href="#mercado" class="hover:text-indigo-600 transition">Mercado</a>
+                <a href="#persona" class="hover:text-indigo-600 transition">Cliente</a>
+                <a href="#marketing" class="hover:text-indigo-600 transition">Marketing</a>
+                <a href="#expansao" class="hover:text-indigo-600 transition">Expansão</a>
+                <a href="#futuro" class="hover:text-indigo-600 transition">Futuro</a>
+                <a href="#acao" class="hover:text-indigo-600 transition">Ação</a>
+            </div>
+            <a href="#acao" class="hidden md:block bg-indigo-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition">
+                Ver Plano
+            </a>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+
+        <!-- Seção Hero -->
+        <section class="text-center mb-16 md:mb-24">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
+                Plano de Ação Estratégico <span class="block gradient-text">Baby Gym</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                Um roteiro completo e detalhado para consolidar a liderança, encantar clientes e impulsionar o crescimento da Baby Gym de 2025 a 2030.
+            </p>
+        </section>
+
+        <!-- Seção de Áudio -->
+        <section id="audio-summary" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="bg-white p-8 rounded-xl shadow-lg max-w-3xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="flex-shrink-0 section-icon text-white rounded-full h-16 w-16 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.858 15.858a5 5 0 01-2.828-7.072m9.9 9.9A9 9 0 012.45 6.45m14.1 14.1l-1.414-1.414" /></svg>
+                    </div>
+                    <div class="flex-grow text-center md:text-left">
+                        <h2 class="text-2xl font-bold text-gray-900">Ouça o Resumo Estratégico</h2>
+                        <p class="text-gray-600 mt-1">Sem tempo para ler? Aperte o play e ouça os pontos-chave do nosso plano de ação.</p>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <audio controls src="baby gym - resumo em audio.mp3">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 1: Raio-X do Mercado -->
+        <section id="mercado" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">📊 Raio-X do Mercado</h2>
+                <p class="text-lg text-gray-600 mt-2">Onde estamos e por que a oportunidade é gigante.</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                    <div class="bg-gray-50 p-6 rounded-xl card-hover">
+                        <div class="text-4xl font-extrabold text-indigo-600 mb-2">+15,3%</div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Crescimento do Setor</h3>
+                        <p class="text-gray-600">O segmento de "Entretenimento e Lazer" para crianças está em alta, mostrando a disposição dos pais em investir.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl card-hover">
+                        <div class="text-4xl font-extrabold text-purple-600 mb-2">R$ 50 Bi</div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">Mercado Infantil</h3>
+                        <p class="text-gray-600">Volume anual que o setor infantil movimenta, abrangendo moda, brinquedos, higiene e serviços.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl card-hover">
+                        <div class="text-4xl font-extrabold text-indigo-600 mb-2">50,1%</div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">A Força das Classes A/B/C</h3>
+                        <p class="text-gray-600">Este público, com maior renda, não vê a Baby Gym como gasto, mas como investimento no futuro dos filhos.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-xl card-hover">
+                        <div class="text-4xl font-extrabold text-purple-600 mb-2">1M</div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2">A Era da Consciência</h3>
+                        <p class="text-gray-600">Pais sabem que o cérebro forma até 1 milhão de conexões neuronais por segundo na primeira infância. Vendemos desenvolvimento.</p>
+                    </div>
+                </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <h3 class="text-2xl font-bold mb-4 text-center">O Motor da Demanda: A "Premiumização"</h3>
+                    <p class="text-center text-gray-600 max-w-4xl mx-auto">
+                        O crescimento do nosso setor é impulsionado por uma mudança cultural profunda: a **conscientização dos pais sobre a importância crítica dos primeiros anos de vida**. A neurociência popularizou a ideia da "janela de oportunidade", e os pais modernos entendem que estímulos ricos nesta fase são a base para a saúde e o bem-estar futuros.
+                        <br><br>
+                        Por isso, nosso serviço deixou de ser visto como "brincadeira" e passou a ser enquadrado como **educação complementar essencial**. Não vendemos "aulas de ginástica", vendemos "desenvolvimento cerebral", "estímulo cognitivo" e "uma base sólida para o futuro". É essa narrativa que justifica nosso valor e atrai o público disposto a investir.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Arena Competitiva -->
+        <section id="competicao" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">⚔️ Arena Competitiva</h2>
+                <p class="text-lg text-gray-600 mt-2">Conhecendo nossos concorrentes para reforçar nosso diferencial.</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center">Análise Comparativa Direta</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="p-4 text-sm font-semibold text-gray-500">Característica</th>
+                                <th class="p-4 text-sm font-semibold text-gray-500 bg-indigo-50 rounded-tl-lg">Baby Gym (Líder)</th>
+                                <th class="p-4 text-sm font-semibold text-gray-500">My Gym (Nicho)</th>
+                                <th class="p-4 text-sm font-semibold text-gray-500">Gymboree (Legado)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-100">
+                                <td class="p-4 font-bold">Metodologia</td>
+                                <td class="p-4 bg-indigo-50">6 Pilares do Desenvolvimento (Psicomotricidade e Neurociências)</td>
+                                <td class="p-4">Fitness para Crianças (força, equilíbrio, agilidade)</td>
+                                <td class="p-4">Play & Music (descontinuado no Brasil)</td>
+                            </tr>
+                            <tr class="border-b border-gray-100">
+                                <td class="p-4 font-bold">Faixa Etária</td>
+                                <td class="p-4 bg-indigo-50">2 meses a 6 anos</td>
+                                <td class="p-4">6 semanas a 13 anos</td>
+                                <td class="p-4">0 a 5 anos</td>
+                            </tr>
+                            <tr class="border-b border-gray-100">
+                                <td class="p-4 font-bold">Presença</td>
+                                <td class="p-4 bg-indigo-50 font-bold text-indigo-700">+50 unidades no Brasil</td>
+                                <td class="p-4">-5 unidades em capitais</td>
+                                <td class="p-4">0 unidades ativas</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold">Diferencial Chave</td>
+                                <td class="p-4 bg-indigo-50 rounded-bl-lg">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Estratégia "Glocal"</span>
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">Microfranquia</span>
+                                </td>
+                                <td class="p-4">Marca global e variedade de programas</td>
+                                <td class="p-4">N/A</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                 <div class="mt-8 pt-6 border-t border-gray-200">
+                    <h4 class="text-xl font-bold mb-4 text-center">Concorrência Indireta: A Batalha pelo Orçamento e Tempo da Família</h4>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full font-medium">Escolas de Natação (Ex: Canguru, Mori)</span>
+                        <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full font-medium">Espaços de Brincar (Ex: Aventura Kids)</span>
+                        <span class="bg-gray-100 text-gray-700 px-4 py-2 rounded-full font-medium">Educação Não-Formal (Idiomas, Robótica)</span>
+                    </div>
+                    <p class="text-center mt-4 bg-yellow-100 text-yellow-800 p-4 rounded-lg">
+                        <strong>Nossa Vantagem Estratégica:</strong> Enquanto outros vendem habilidades específicas, nós vendemos a **base para todas as outras habilidades**: o desenvolvimento integral e holístico, que potencializa todos os outros aprendizados.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Persona -->
+        <section id="persona" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">🎯 Um Mergulho Profundo em Nossa Cliente: Carla</h2>
+                <p class="text-lg text-gray-600 mt-2">Para encantar, precisamos entender cada detalhe de quem ela é.</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden md:grid md:grid-cols-5">
+                <div class="md:col-span-2">
+                    <img src="https://placehold.co/600x800/E0E7FF/4F46E5?text=Carla+%26+Theo" alt="[Imagem de uma mãe jovem e moderna com seu bebê]" class="w-full h-full object-cover">
+                </div>
+                <div class="p-8 md:p-12 md:col-span-3" x-data="{ tab: 'dores' }">
+                    <h3 class="text-2xl font-bold text-gray-900">Carla Oliveira, 32 anos</h3>
+                    <p class="text-indigo-600 font-medium mb-6">Mãe do Theo, 8 meses. Analista de Marketing Digital.</p>
+                    
+                    <div class="border-b border-gray-200 mb-6">
+                        <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                            <button @click="tab = 'dores'" :class="{ 'border-indigo-500 text-indigo-600': tab === 'dores', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'dores' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Dores e Medos</button>
+                            <button @click="tab = 'desejos'" :class="{ 'border-indigo-500 text-indigo-600': tab === 'desejos', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'desejos' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Desejos</button>
+                            <button @click="tab = 'objecoes'" :class="{ 'border-indigo-500 text-indigo-600': tab === 'objecoes', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'objecoes' }" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Objeções</button>
+                        </nav>
+                    </div>
+
+                    <div x-show="tab === 'dores'" x-cloak>
+                        <h4 class="font-bold text-lg mb-2">O que a impede de dormir à noite?</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li><strong>Medo de falhar como mãe:</strong> Teme não oferecer o estímulo adequado e prejudicar o futuro do filho.</li>
+                            <li><strong>Insegurança constante:</strong> "Será que estou fazendo o suficiente? Estou no caminho certo?"</li>
+                            <li><strong>Culpa:</strong> Sente-se culpada por não conseguir dar atenção exclusiva devido ao trabalho.</li>
+                            <li><strong>Ansiedade social:</strong> Preocupa-se que Theo não se adapte bem na escola ou com outras crianças.</li>
+                            <li><strong>Frustração:</strong> Cansada de gastar tempo e dinheiro com soluções que não trazem resultados visíveis.</li>
+                        </ul>
+                    </div>
+                    <div x-show="tab === 'desejos'" x-cloak>
+                        <h4 class="font-bold text-lg mb-2">O que ela realmente quer?</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>Ver o filho ter um desenvolvimento motor e cognitivo <strong>saudável e visível</strong>.</li>
+                            <li>Proporcionar uma infância rica, cheia de <strong>descobertas e alegrias</strong>.</li>
+                            <li>Encontrar um <strong>apoio especializado</strong> e trocar experiências com outras mães que a entendam.</li>
+                            <li>Sentir-se <strong>segura e confiante</strong> em suas escolhas como mãe.</li>
+                            <li>Ter mais tempo de qualidade para <strong>curtir a maternidade</strong> de forma tranquila e presente.</li>
+                        </ul>
+                    </div>
+                    <div x-show="tab === 'objecoes'" x-cloak>
+                        <h4 class="font-bold text-lg mb-2">O que a faz hesitar?</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li><strong>Preço:</strong> "É um investimento muito alto, será que vale a pena?"</li>
+                            <li><strong>Eficácia:</strong> "Será que isso realmente vai funcionar para o meu filho?"</li>
+                            <li><strong>Segurança:</strong> "O ambiente é seguro o suficiente?"</li>
+                            <li><strong>Necessidade:</strong> "Preciso mesmo de uma metodologia estruturada ou só brincar já basta?"</li>
+                             <li><strong>Julgamento social:</strong> "Será que estou sendo exagerada?"</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 4: Estratégia de Marketing -->
+        <section id="marketing" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">📣 Estratégia de Marketing Detalhada</h2>
+                <p class="text-lg text-gray-600 mt-2">Construindo confiança e gerando demanda de forma irresistível.</p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-xl shadow-lg mb-12">
+                <h3 class="text-2xl font-bold text-center mb-2">O Triângulo da Confiança</h3>
+                <p class="text-center text-gray-600 mb-8">Nossa arma secreta para conquistar a Carla. Ela precisa ser cercada por validação de todos os lados.</p>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="flex flex-col items-center p-4 rounded-lg bg-gray-50">
+                        <div class="section-icon text-white rounded-full h-16 w-16 flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6" /></svg></div>
+                        <h4 class="text-xl font-bold mb-2">Validação de Especialistas</h4>
+                        <p class="text-gray-600">Depoimentos de pediatras e neuropediatras. Isso eleva nosso serviço de "lazer" para "respaldo profissional".</p>
+                    </div>
+                    <div class="flex flex-col items-center p-4 rounded-lg bg-gray-50">
+                        <div class="section-icon text-white rounded-full h-16 w-16 flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m-1 4h1m3-4h2m-2 4h2m5-4h1m-1 4h1m-5-4h1m-1 4h1" /></svg></div>
+                        <h4 class="text-xl font-bold mb-2">Endosso Institucional</h4>
+                        <p class="text-gray-600">Parcerias como "Baby Gym na Escola". Se a escola do filho dela confia, ela também confiará.</p>
+                    </div>
+                    <div class="flex flex-col items-center p-4 rounded-lg bg-gray-50">
+                        <div class="section-icon text-white rounded-full h-16 w-16 flex items-center justify-center mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>
+                        <h4 class="text-xl font-bold mb-2">Prova Social</h4>
+                        <p class="text-gray-600">Depoimentos autênticos de outras mães e parcerias com "maternidades reais".</p>
+                    </div>
+                </div>
+            </div>
+
+            <div x-data="{ open: 'conteudo' }">
+                <div class="flex justify-center border-b mb-8">
+                    <button @click="open = 'conteudo'" :class="open === 'conteudo' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" class="px-6 py-3 font-medium border-b-2">Dicas de Conteúdo</button>
+                    <button @click="open = 'anuncios'" :class="open === 'anuncios' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500'" class="px-6 py-3 font-medium border-b-2">Dicas de Anúncios</button>
+                </div>
+
+                <div x-show="open === 'conteudo'" x-cloak class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Exemplo de Conteúdo: Reels de Transformação</h3>
+                        <p class="text-gray-600 mb-4"><strong>Título:</strong> "Como a estimulação precoce realmente ajuda seu filho a se desenvolver? 👶💡"</p>
+                        <div class="text-sm space-y-2 p-4 bg-gray-50 rounded-lg">
+                            <p><strong>00:01-00:05:</strong> [Cena: Close-up de um bebê curioso explorando um brinquedo sensorial] "Você sabia que a estimulação certa pode fazer toda a diferença no futuro do seu filho?"</p>
+                            <p><strong>00:06-00:12:</strong> [Cena: Mãe e filho brincando juntos, interagindo com um livro] "As atividades que você escolhe agora ajudam a desenvolver habilidades motoras, cognitivas e emocionais."</p>
+                            <p><strong>00:13-00:18:</strong> [Cena: Bebê mostrando uma habilidade nova, como engatinhar ou empilhar blocos] "Cada novo passo é fruto de uma escolha consciente. A Baby Gym garante que esse desenvolvimento aconteça de forma saudável."</p>
+                            <p><strong>00:19-00:30:</strong> [Cena: Uma de nossas especialistas sorrindo para a câmera] "E você não precisa se sentir insegura. Existe uma maneira científica de estimular seu filho. Não se trata de adivinhar, mas de fazer as escolhas certas!"</p>
+                            <p><strong>00:31-00:45:</strong> [Cena: Criança sorrindo, fazendo atividades de movimento na Baby Gym] "Com o acompanhamento certo, você vai ver seu filho crescer confiante e pronto para os próximos desafios!"</p>
+                        </div>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Outras Ideias de Conteúdo</h3>
+                        <ul class="list-disc list-inside space-y-3 text-gray-600">
+                             <li><strong>Relacionamento (Reels):</strong> "O que significa ser uma mãe que busca o melhor para o seu filho? 💙" - Foco na jornada e emoções da mãe.</li>
+                             <li><strong>Engajamento (Carrossel):</strong> "Quem mais já viveu isso? 😅 #DesafioDaMaternidade" - Cenas comuns e engraçadas da maternidade para gerar identificação e comentários.</li>
+                             <li><strong>Autoridade (Vídeo Longo):</strong> "Método científico: como a Baby Gym transforma o desenvolvimento infantil? 💡" - Entrevista com um especialista explicando os 6 pilares.</li>
+                             <li><strong>Interação (Stories):</strong> Caixa de perguntas "Quais atividades você ama fazer com seu filho?" para criar comunidade.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div x-show="open === 'anuncios'" x-cloak class="grid md:grid-cols-2 gap-8">
+                     <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Exemplo de Anúncio: Gancho de História</h3>
+                        <p class="text-gray-600 mb-4">Focado em criar conexão emocional imediata.</p>
+                        <div class="text-sm space-y-2 p-4 bg-gray-50 rounded-lg">
+                           <p><strong>GANCHO:</strong> "Eu sou a Carla, mãe do Theo. Quando ele tinha 6 meses, levei ele a um parquinho e ele não queria interagir com as outras crianças. Eu me senti a pior mãe do mundo, pensando ‘Será que estou fazendo tudo errado?’"</p>
+                           <p><strong>CORPO:</strong> "Eu entendo como é essa sensação. Na Baby Gym, o Theo pode brincar com segurança, enquanto eu aprendo a estimulá-lo da forma correta, com atividades que realmente contribuem para o seu desenvolvimento. Com a ajuda de especialistas e um ambiente preparado, o Theo está superando desafios e fazendo grandes progressos!"</p>
+                           <p><strong>CTA:</strong> "Venha conhecer a Baby Gym e garantir o melhor para o desenvolvimento do seu filho. Clique agora e agende uma visita!"</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">20 Ganchos Prontos para Usar</h3>
+                        <div class="h-64 overflow-y-auto p-4 bg-gray-50 rounded-lg text-sm text-gray-600 space-y-2">
+                            <p>1. Você tem certeza de que está proporcionando o melhor para o desenvolvimento do seu filho?</p>
+                            <p>2. Você sabia que muitos brinquedos educativos não são eficazes?</p>
+                            <p>3. Está na hora de você garantir um futuro brilhante para o seu filho?</p>
+                            <p>4. Como você acha que seu filho vai se sair na escola? Está preparando ele para isso?</p>
+                            <p>5. Você sabia que atividades simples podem fazer uma enorme diferença na vida dele?</p>
+                            <p>6. Há um ano atrás, eu estava como você... tentando encontrar o melhor para meu filho.</p>
+                            <p>7. Lembro de me perguntar se eu estava dando as ferramentas certas para ele crescer saudável.</p>
+                            <p>8. Imagine como seria ter acesso a um lugar onde pudesse aprender a estimular seu filho da forma certa.</p>
+                            <p>9. Como mãe de primeira viagem, eu sentia muita insegurança. Mas a Baby Gym foi a solução.</p>
+                            <p>10. Quando meu filho não conseguia interagir com outras crianças, eu sabia que algo precisava mudar.</p>
+                            <p>11. Você sabia que apenas deixar seu filho brincar não garante um bom desenvolvimento?</p>
+                            <p>12. Nem todo brinquedo educativo é realmente educativo. A gente te mostra a diferença.</p>
+                            <p>13. O que dizem por aí sobre 'brincar' pode não ser o melhor para o seu filho.</p>
+                            <p>14. Você acha que o desenvolvimento do seu filho acontece naturalmente? O estímulo certo acelera tudo!</p>
+                            <p>15. Você sabia que os primeiros anos são fundamentais para o desenvolvimento emocional e social?</p>
+                            <p>16. Se você é mãe de primeira viagem e está perdida, a Baby Gym tem o caminho certo.</p>
+                            <p>17. Mães que trabalham em home office: como equilibrar a carreira e garantir um bom desenvolvimento?</p>
+                            <p>18. Mães que buscam algo além do óbvio: oferecemos desenvolvimento integral!</p>
+                            <p>19. Você busca mais qualidade de vida para sua família? Entenda como nossos métodos podem ajudar.</p>
+                            <p>20. Se você tem medo de errar no estímulo ao seu filho, a Baby Gym oferece um ambiente seguro e com método.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 5: Plano de Expansão -->
+        <section id="expansao" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">🚀 Plano de Expansão: A Conquista do Brasil</h2>
+                <p class="text-lg text-gray-600 mt-2">Nossa chave para a dominação do mercado é um modelo de franquia duplo e inteligente.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-gray-200">
+                    <h3 class="text-2xl font-bold mb-2">Franquia Padrão</h3>
+                    <p class="text-gray-500 mb-4">O Templo da Marca</p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>Capitais e grandes cidades</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01"></path></svg>Investimento: R$ 190k - R$ 901k</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m-1 4h1m3-4h2m-2 4h2m5-4h1m-1 4h1m-5-4h1m-1 4h1"></path></svg>Unidade física completa</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>Âncora de reputação</li>
+                    </ul>
+                </div>
+                <div class="bg-indigo-600 text-white p-8 rounded-xl shadow-lg border-2 border-indigo-700">
+                    <h3 class="text-2xl font-bold mb-2">Microfranquia <span class="text-sm bg-white text-indigo-600 font-bold px-2 py-1 rounded-full ml-2">INOVAÇÃO</span></h3>
+                    <p class="text-indigo-200 mb-4">A Conquista do Interior</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>Cidades com -150.000 hab.</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>Investimento: **a partir de R$ 40k**</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.085a2 2 0 00-1.736.97l-2.7 5.4M7 15V5a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2h1"></path></svg>Modelo leve, com parcerias</li>
+                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>Penetração em "oceanos azuis"</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="mt-8 text-center">
+                <p class="text-lg font-semibold bg-green-100 text-green-800 p-4 rounded-lg">
+                    <span class="font-extrabold">Ação Imediata:</span> Acelerar a expansão da rede de **microfranquias** para dominar o interior do Brasil e criar uma barreira de entrada massiva para concorrentes.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- Seção 6: Visão de Futuro -->
+        <section id="futuro" class="mb-20 md:mb-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">🔮 Visão de Futuro (2025-2030)</h2>
+                <p class="text-lg text-gray-600 mt-2">Onde a Baby Gym estará: o ecossistema de desenvolvimento 24/7.</p>
+            </div>
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center mb-2">O Ecossistema "Phygital"</h3>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">A liderança do futuro não será só sobre aulas. Será sobre unir o mundo físico ao digital para dar suporte total à família.</p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="text-center p-6 bg-indigo-100 rounded-xl w-full md:w-1/3 card-hover">
+                        <div class="section-icon text-white rounded-full h-16 w-16 flex items-center justify-center mb-4 mx-auto"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10h.01M15 10h.01M9 14h.01M15 14h.01" /></svg></div>
+                        <h4 class="text-xl font-bold text-indigo-800">Unidade Física</h4>
+                        <p class="text-indigo-700">O coração da experiência, insubstituível para motricidade e socialização.</p>
+                    </div>
+                    <div class="text-4xl font-bold text-gray-300">+</div>
+                    <div class="text-center p-6 bg-purple-100 rounded-xl w-full md:w-2/3 card-hover">
+                         <div class="section-icon text-white rounded-full h-16 w-16 flex items-center justify-center mb-4 mx-auto"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg></div>
+                        <h4 class="text-xl font-bold text-purple-800">Camada Digital (Nosso App)</h4>
+                        <div class="mt-4 grid grid-cols-2 gap-4 text-left">
+                            <p class="text-purple-700"><strong class="block">Reforço:</strong> Dicas e atividades para fazer em casa.</p>
+                            <p class="text-purple-700"><strong class="block">Tracking:</strong> Acompanhamento visível do progresso do bebê.</p>
+                            <p class="text-purple-700"><strong class="block">Personalização:</strong> IA sugere estímulos focados em cada criança.</p>
+                            <p class="text-purple-700"><strong class="block">Comunidade:</strong> Fóruns seguros para pais trocarem experiências.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="mt-8 text-center">
+                    <p class="text-lg font-semibold bg-indigo-100 text-indigo-800 p-4 rounded-lg">
+                        Este ecossistema aumenta a fidelidade, justifica um preço premium e cria uma vantagem competitiva massiva.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 7: Roteiro de Ação -->
+        <section id="acao" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">✅ Roteiro de Ação: Próximos Passos</h2>
+                <p class="text-lg text-gray-600 mt-2">Transformando estratégia em realidade. O que fazer agora.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-700">Para a Liderança da Baby Gym</h3>
+                    <ol class="list-decimal list-inside space-y-4 text-gray-700">
+                        <li><strong class="text-gray-900">CONSOLIDAR:</strong> Priorizar e acelerar a expansão da rede de **microfranquias** para dominar o interior do país.</li>
+                        <li><strong class="text-gray-900">INOVAR:</strong> Iniciar imediatamente o projeto e desenvolvimento do **ecossistema "phygital" (App)**. Evoluir de "aulas" para "plataforma de desenvolvimento".</li>
+                        <li><strong class="text-gray-900">OTIMIZAR:</strong> Investir em ferramentas de análise de dados para apoiar a rede de franqueados, garantindo excelência operacional e sucesso em cada unidade.</li>
+                    </ol>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                    <h3 class="text-2xl font-bold mb-4 text-purple-700">Para Novos Franqueados</h3>
+                     <ol class="list-decimal list-inside space-y-4 text-gray-700">
+                        <li><strong class="text-gray-900">ESCOLHER O MODELO CORRETO:</strong> Analisar o mercado local para decidir entre a franquia padrão e a microfranquia, de acordo com o potencial da sua cidade.</li>
+                        <li><strong class="text-gray-900">FOCAR NO HIPERLOCAL:</strong> Construir seu "Triângulo da Confiança" no bairro: crie laços com pediatras, escolas e creches locais. Seja a referência na sua comunidade.</li>
+                        <li><strong class="text-gray-900">ENTREGAR UMA EXPERIÊNCIA EXCEPCIONAL:</strong> A qualidade do serviço e um atendimento impecável são seus maiores diferenciais para construir lealdade e gerar marketing boca a boca.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-20 md:mt-32">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p class="font-bold text-lg">Baby Gym - Plano de Ação 2025-2030</p>
+            <p class="text-gray-400 text-sm mt-1">Construindo o futuro, um estímulo de cada vez.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
