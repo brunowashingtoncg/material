@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Estratégico | Fisioterapia Cardiopulmonar em Campina Grande</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Teal -->
+    <!-- Application Structure Plan: A single-page dashboard structure was chosen to provide a holistic and non-linear overview of the strategic analysis. This design moves away from a traditional report format to a more engaging, task-oriented user experience. The structure is divided into four thematic sections: (1) Sumário & Oportunidade, providing a high-level snapshot with key metrics; (2) Cenário Competitivo, allowing for interactive comparison; (3) Paciente-Alvo, visually mapping patient journeys; and (4) Plano de Ação, presenting strategies in an interactive tabbed format. This architecture facilitates quick comprehension and allows users (clinic managers) to drill down into areas of interest, making the complex data more accessible and actionable. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Epidemiological data (causes of death). Goal: Inform on market need. Viz: Donut Chart. Interaction: Hover for details. Justification: Quickly communicates proportions of a whole, highlighting the significance of cardiopulmonary diseases. Library: Chart.js.
+        - Report Info: Competitor analysis table. Goal: Compare competitors. Viz: Interactive Cards. Interaction: Click to reveal details. Justification: More engaging than a static table, allows users to focus on one competitor at a time, reducing cognitive load. Method: HTML/CSS/JS.
+        - Report Info: Patient journey descriptions. Goal: Organize and explain complex flows. Viz: Thematic columns with icons. Interaction: Static visual flow. Justification: Translates dense text into a clear, scannable visual diagram, making the journeys easy to understand at a glance. Method: HTML/Tailwind.
+        - Report Info: Strategic action plan. Goal: Organize and present actionable steps. Viz: Tabbed Interface. Interaction: Click to switch between strategic pillars. Justification: Organizes a large amount of information into logical, digestible chunks, preventing overwhelm and clarifying the multi-faceted plan. Method: HTML/CSS/JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfaf6;
+            color: #4a4a4a;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #00796b;
+            border-bottom-color: #00796b;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.07);
+        }
+        .tab-button {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .tab-button.active {
+            background-color: #00796b;
+            color: white;
+        }
+        .competitor-card.active {
+            border-color: #00796b;
+            box-shadow: 0 0 0 2px #00796b;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Análise Estratégica 2025</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#oportunidade" class="nav-link pb-1">Oportunidade</a>
+                <a href="#concorrencia" class="nav-link pb-1">Concorrência</a>
+                <a href="#paciente" class="nav-link pb-1">Paciente-Alvo</a>
+                <a href="#plano" class="nav-link pb-1">Plano de Ação</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="sumario" class="text-center mb-20">
+            <h2 class="text-3xl md:text-4xl font-bold text-teal-800 mb-4">Estratégias para Fisioterapia Cardiopulmonar</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Uma análise interativa do mercado de Campina Grande-PB, focada em estratégias de crescimento e captação de pacientes para 2025. A estratégia central é a **Dominância de Nicho através de Cuidado Integrado**.
+            </p>
+            
+            <div class="mt-8 max-w-lg mx-auto">
+                 <div class="card p-4 rounded-lg">
+                    <p class="font-semibold text-gray-700 mb-3">Ouça o resumo da análise estratégica:</p>
+                    <audio controls class="w-full">
+                        <source src="institutotrilhar.mp3" type="audio/mpeg">
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12">
+                <div class="card p-6 rounded-lg text-center">
+                    <div class="text-4xl font-bold text-red-600">32,9%</div>
+                    <p class="mt-2 text-gray-600">Mortalidade por Doenças Cardiopulmonares na PB (2021)</p>
+                </div>
+                <div class="card p-6 rounded-lg text-center">
+                    <div class="text-4xl font-bold text-teal-600">419 mil</div>
+                    <p class="mt-2 text-gray-600">População de Campina Grande (Censo 2022)</p>
+                </div>
+                <div class="card p-6 rounded-lg text-center">
+                    <div class="text-4xl font-bold text-blue-600">~35%</div>
+                    <p class="mt-2 text-gray-600">Market Share estimado da Unimed no mercado local</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="oportunidade" class="mb-20 scroll-mt-20">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Análise do Ecossistema e Demanda</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+                A viabilidade de uma clínica especializada depende de uma demanda clara. Os dados epidemiológicos, demográficos e do sistema de saúde suplementar revelam uma oportunidade de mercado robusta e crescente em Campina Grande.
+            </p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="card p-6 rounded-lg">
+                    <h4 class="font-bold text-lg mb-4 text-center">Principais Causas de Mortalidade na Paraíba (2021)</h4>
+                    <p class="text-sm text-center text-gray-500 mb-4">As doenças cardiovasculares e respiratórias representam um terço de todos os óbitos, indicando uma alta prevalência de condições crônicas que necessitam de reabilitação.</p>
+                    <div class="chart-container">
+                        <canvas id="mortalidadeChart"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="card p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2">📈 Perfil Demográfico e Socioeconômico</h4>
+                        <p class="text-gray-600">Com uma população em crescimento e alta densidade, a logística de atendimento é facilitada. A polarização econômica define o público-alvo para clínicas privadas nos segmentos de média e alta renda, que buscam serviços de maior valor agregado.</p>
+                    </div>
+                    <div class="card p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2">🏥 Saúde Suplementar</h4>
+                        <p class="text-gray-600">O credenciamento com as principais operadoras, especialmente a Unimed, é uma prioridade estratégica fundamental para acessar a maior fatia do mercado pagador e garantir um fluxo constante de pacientes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="concorrencia" class="mb-20 scroll-mt-20">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Mapeamento Competitivo Local</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+                O cenário competitivo em Campina Grande está em formação, com poucos players especializados. Isso representa uma janela de oportunidade para se estabelecer como líder de nicho. Clique nos concorrentes para ver a análise.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8" id="competitor-selector">
+                 <button data-target="fisioar" class="competitor-card p-4 rounded-lg border-2 border-gray-200 text-left">
+                    <h5 class="font-bold">Clínica Fisioar</h5>
+                    <p class="text-sm text-gray-500">Concorrente Direto</p>
+                </button>
+                <button data-target="trilhar" class="competitor-card p-4 rounded-lg border-2 border-gray-200 text-left">
+                    <h5 class="font-bold">Instituto Trilhar</h5>
+                    <p class="text-sm text-gray-500">Concorrente Direto</p>
+                </button>
+                <button data-target="uepb" class="competitor-card p-4 rounded-lg border-2 border-gray-200 text-left">
+                    <h5 class="font-bold">Clínica Escola UEPB</h5>
+                    <p class="text-sm text-gray-500">Ator Institucional</p>
+                </button>
+                <button data-target="generalistas" class="competitor-card p-4 rounded-lg border-2 border-gray-200 text-left">
+                    <h5 class="font-bold">Fisioterapeutas Generalistas</h5>
+                    <p class="text-sm text-gray-500">Concorrência Indireta</p>
+                </button>
+            </div>
+            <div id="competitor-details" class="card p-6 rounded-lg min-h-[200px] flex items-center justify-center">
+                <div class="text-center text-gray-500">Selecione um concorrente acima para ver os detalhes.</div>
+            </div>
+        </section>
+
+        <section id="paciente" class="mb-20 scroll-mt-20">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Perfil e Jornada do Paciente-Alvo</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+                Entender quem são os pacientes, suas necessidades e como tomam decisões é crucial. Segmentamos o público em três perfis principais, cada um com uma jornada e pontos de contato específicos.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6 rounded-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center text-red-700">1. Paciente Pós-Agudo</h4>
+                    <p class="text-gray-600 mb-4">Após alta hospitalar (infarto, cirurgia cardíaca). A principal necessidade é a recuperação funcional e prevenção de novos eventos.</p>
+                    <div class="space-y-3">
+                        <div class="flex items-start"><span class="text-xl mr-3">🏥</span><span><strong class="block">Origem:</strong> Encaminhado pelo médico na alta hospitalar.</span></div>
+                        <div class="flex items-start"><span class="text-xl mr-3">❤️</span><span><strong class="block">Necessidade:</strong> Segurança, recuperação da confiança e funcionalidade.</span></div>
+                        <div class="flex items-start"><span class="text-xl mr-3">🎯</span><span><strong class="block">Ponto de Contato Crítico:</strong> Indicação da equipe do hospital (Hospital de Trauma).</span></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center text-blue-700">2. Paciente Crônico</h4>
+                    <p class="text-gray-600 mb-4">Com doenças de longa data (DPOC, insuficiência cardíaca). Busca manejo de sintomas e melhora da qualidade de vida.</p>
+                    <div class="space-y-3">
+                        <div class="flex items-start"><span class="text-xl mr-3">🩺</span><span><strong class="block">Origem:</strong> Encaminhado pelo especialista (cardiologista, pneumologista).</span></div>
+                        <div class="flex items-start"><span class="text-xl mr-3">🚶</span><span><strong class="block">Necessidade:</strong> Melhorar capacidade para atividades diárias, reduzir falta de ar.</span></div>
+                        <div class="flex items-start"><span class="text-xl mr-3">💻</span><span><strong class="block">Ponto de Contato Crítico:</strong> Indicação no consultório e busca online para validação.</span></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg">
+                    <h4 class="font-bold text-xl mb-4 text-center text-green-700">3. Paciente Preventivo</h4>
+                    <p class="text-gray-600 mb-4">Com fatores de risco (hipertensão, diabetes) ou ex-pacientes em manutenção. Busca condicionamento físico seguro.</p>
+                     <div class="space-y-3">
+                        <div class="flex items-start"><span class="text-xl mr-3">💪</span><span><strong class="block">Origem:</strong> Busca proativa, parcerias com academias, marketing direto.</span></div>
+                        <div class="flex items-start"><span class="text-xl mr-3">✅</span><span><strong class="block">Necessidade:</strong> Supervisão especializada para exercitar-se com segurança.</span></div>
+                        <div class="flex items-start"><span class="text-xl mr-3">📢</span><span><strong class="block">Ponto de Contato Crítico:</strong> Conteúdo educacional online e campanhas de prevenção.</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="plano" class="scroll-mt-20">
+            <h3 class="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">Plano de Ação Estratégico para 2025</h3>
+            <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+                Para traduzir a análise em resultados, o plano de ação se concentra em três pilares estratégicos a serem executados de forma integrada. Navegue pelas abas para explorar cada pilar.
+            </p>
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-4 flex flex-col sm:flex-row border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="tab-button flex-1 p-4 font-semibold active" data-tab="pilar1">
+                        Pilar 1: Rede de Encaminhamento
+                    </button>
+                    <button class="tab-button flex-1 p-4 font-semibold" data-tab="pilar2">
+                        Pilar 2: Liderança Digital
+                    </button>
+                    <button class="tab-button flex-1 p-4 font-semibold" data-tab="pilar3">
+                        Pilar 3: Inovação em Serviços
+                    </button>
+                </div>
+                <div class="card p-8 rounded-lg">
+                    <div id="pilar1" class="tab-content">
+                        <h4 class="font-bold text-xl mb-4 text-teal-800">Construção da Rede de Encaminhamento (O Alicerce)</h4>
+                        <p class="mb-6 text-gray-600">Focar na estratégia B2B para garantir um fluxo constante e qualificado de pacientes através da comunidade médica.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">Q1:</span><span><strong>Mapear Parceiros-Chave:</strong> Identificar e classificar os 30 principais médicos e 3 hospitais de Campina Grande.</span></li>
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">Q2:</span><span><strong>Desenvolver Material de Apoio:</strong> Criar portfólio técnico com detalhes dos programas de reabilitação.</span></li>
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">Q2→</span><span><strong>Implementar Programa de Relacionamento:</strong> Iniciar ciclo de visitas e estabelecer protocolo de feedback com relatórios de progresso.</span></li>
+                        </ul>
+                    </div>
+                    <div id="pilar2" class="tab-content hidden">
+                        <h4 class="font-bold text-xl mb-4 text-teal-800">Liderança Digital e Educacional (A Visibilidade)</h4>
+                        <p class="mb-6 text-gray-600">Capturar a demanda online e construir a autoridade da marca junto aos pacientes e seus familiares.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">Q1:</span><span><strong>Lançar Plataforma Digital:</strong> Publicar website profissional otimizado para SEO e perfil completo no Google Meu Negócio.</span></li>
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">H1:</span><span><strong>Executar Estratégia de Conteúdo:</strong> Desenvolver calendário de posts e vídeos que eduquem o mercado e respondam às dúvidas dos pacientes.</span></li>
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">Contínuo:</span><span><strong>Fomentar Prova Social:</strong> Criar processo para solicitar e gerenciar avaliações de pacientes, visando 20+ reviews positivos no primeiro ano.</span></li>
+                        </ul>
+                    </div>
+                    <div id="pilar3" class="tab-content hidden">
+                        <h4 class="font-bold text-xl mb-4 text-teal-800">Diversificação e Inovação dos Serviços (O Diferencial)</h4>
+                        <p class="mb-6 text-gray-600">Diferenciar a clínica através de modelos de atendimento inovadores e uma oferta de valor superior.</p>
+                        <ul class="space-y-4">
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">Q2:</span><span><strong>Estruturar Novos Modelos:</strong> Definir protocolos, logística e preços para atendimento domiciliar e telessaúde (híbrido).</span></li>
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">Q2:</span><span><strong>Desenhar Programas Estruturados:</strong> Criar no mínimo 3 pacotes de reabilitação (ex: Pós-Infarto, DPOC, Preventivo).</span></li>
+                            <li class="flex items-start"><span class="text-teal-600 font-bold text-lg mr-3">Q3/Q4:</span><span><strong>Pilotar e Lançar:</strong> Realizar projeto piloto para ajustar processos e lançar oficialmente a oferta completa de serviços.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-20">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <p>&copy; 2025 Análise Estratégica. Todos os direitos reservados.</p>
+            <p class="text-sm text-gray-400">Este é um painel interativo gerado a partir de um relatório de análise de mercado.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const mortalityData = {
+                labels: ['Doenças Cardiovasculares', 'Doenças Respiratórias', 'Neoplasias', 'Causas Externas', 'Outras'],
+                datasets: [{
+                    label: '% de Mortalidade',
+                    data: [24.1, 8.8, 15, 10, 42.1],
+                    backgroundColor: [
+                        '#e53935', // Red
+                        '#039be5', // Blue
+                        '#fdd835', // Yellow
+                        '#757575', // Gray
+                        '#d7ccc8'  // Light Brown
+                    ],
+                    borderColor: '#fdfaf6',
+                    borderWidth: 3,
+                    hoverOffset: 4
+                }]
+            };
+
+            const mortalityConfig = {
+                type: 'doughnut',
+                data: mortalityData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                color: '#4a4a4a',
+                                font: {
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            const mortalityChartCtx = document.getElementById('mortalidadeChart').getContext('2d');
+            new Chart(mortalityChartCtx, mortalityConfig);
+
+            const competitorData = {
+                fisioar: {
+                    title: 'Clínica Fisioar',
+                    content: `
+                        <p class="mb-2"><strong>Pontos Fortes:</strong> Marca estabelecida, múltiplos endereços para maior cobertura geográfica.</p>
+                        <p class="mb-2"><strong>Pontos Fracos:</strong> Marketing genérico e posicionamento de marca pouco claro. Presença digital fraca (nota 2/5).</p>
+                        <p><strong>Implicação Estratégica:</strong> A oportunidade está em se diferenciar pela experiência do paciente, uso de tecnologia e comunicação de marketing mais técnica e focada.</p>
+                    `
+                },
+                trilhar: {
+                    title: 'Instituto Trilhar',
+                    content: `
+                        <p class="mb-2"><strong>Pontos Fortes:</strong> Hiper-especialização comunicada diretamente no nome, criando um forte foco de nicho.</p>
+                        <p class="mb-2"><strong>Pontos Fracos:</strong> Marca muito nova (fundada em 2024), sem reputação ou prova social construída. Presença digital incipiente (nota 1/5).</p>
+                        <p><strong>Implicação Estratégica:</strong> Representa a ameaça mais direta. É urgente construir a própria marca e autoridade para competir pelo mesmo público-alvo.</p>
+                    `
+                },
+                uepb: {
+                    title: 'Clínica Escola UEPB',
+                    content: `
+                        <p class="mb-2"><strong>Pontos Fortes:</strong> Atendimento gratuito ou de baixo custo, atendendo um alto volume de pacientes.</p>
+                        <p class="mb-2"><strong>Pontos Fracos:</strong> Longa fila de espera, qualidade do atendimento pode ser variável (realizado por estudantes), falta de imediatismo.</p>
+                        <p><strong>Implicação Estratégica:</strong> Não compete pelo mesmo público-alvo. A estratégia é se posicionar como a alternativa premium, imediata e altamente especializada.</p>
+                    `
+                },
+                generalistas: {
+                    title: 'Fisioterapeutas Generalistas e Academias',
+                    content: `
+                        <p class="mb-2"><strong>Pontos Fortes:</strong> Ampla cobertura, acessibilidade e conveniência. Podem ser percebidos como "suficientes".</p>
+                        <p class="mb-2"><strong>Pontos Fracos:</strong> Falta de especialização e equipamentos para casos complexos, o que pode representar um risco para o paciente.</p>
+                        <p><strong>Implicação Estratégica:</strong> O principal desafio é educar o mercado sobre o valor e a segurança da reabilitação especializada através de marketing de conteúdo.</p>
+                    `
+                }
+            };
+
+            const competitorSelector = document.getElementById('competitor-selector');
+            const competitorDetails = document.getElementById('competitor-details');
+            const competitorCards = competitorSelector.querySelectorAll('.competitor-card');
+
+            competitorSelector.addEventListener('click', (e) => {
+                const button = e.target.closest('.competitor-card');
+                if (!button) return;
+
+                const targetId = button.dataset.target;
+                const data = competitorData[targetId];
+                
+                competitorCards.forEach(card => card.classList.remove('active'));
+                button.classList.add('active');
+
+                competitorDetails.innerHTML = `
+                    <div class="text-left w-full">
+                        <h4 class="font-bold text-xl mb-4 text-teal-800">${data.title}</h4>
+                        <div class="text-gray-600 space-y-2">${data.content}</div>
+                    </div>
+                `;
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === tabId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section[id]');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
