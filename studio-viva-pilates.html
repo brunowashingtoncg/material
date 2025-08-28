@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Ação Interativo: Studio Viva Pilates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Creme, Taupe, Verde Sálvia Suave) -->
+    <!-- Application Structure Plan: A estrutura é um painel de controle de página única (SPA) dividido em quatro seções temáticas: Visão Geral, Estratégia, Plano de Ação e Métricas. Essa abordagem foi escolhida para transformar um relatório linear e denso em uma ferramenta de exploração intuitiva. O usuário obtém uma visão geral imediata e pode aprofundar-se em áreas de interesse com interações de clique, o que facilita a compreensão e a retenção das informações-chave, ao contrário de uma leitura passiva. O fluxo é projetado para ir do macro (mercado) ao micro (KPIs), guiando o usuário logicamente através do plano estratégico. -->
+    <!-- Visualization & Content Choices: Análise Competitiva -> Meta: Comparar -> Visualização: Gráfico de Barras (Chart.js) -> Interação: Hover para detalhes. Justificativa: Permite uma comparação visual rápida de múltiplos fatores, superior à tabela estática. Pilares Estratégicos -> Meta: Organizar -> Visualização: Diagrama de Cartões Interativos (HTML/CSS) -> Interação: Clique para expandir. Justificativa: Apresenta os conceitos fundamentais de forma limpa, evitando sobrecarga de informação. Funil de Vendas e Roadmap -> Meta: Organizar/Mostrar Mudança -> Visualização: Diagramas de Funil e Linha do Tempo (HTML/CSS) -> Interação: Clique para detalhes. Justificativa: Torna processos e cronogramas complexos visualmente digeríveis. KPIs -> Meta: Informar -> Visualização: Gráfico de Rosca e Calculadora (Chart.js/JS) -> Interação: Hover e input do usuário. Justificativa: Transforma métricas abstratas em insights acionáveis e compreensíveis. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #6B8A7A;
+            border-bottom-color: #6B8A7A;
+        }
+        .kpi-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .pillar-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .pillar-card:hover {
+            background-color: #EAE7E2;
+            transform: scale(1.03);
+        }
+        .funnel-stage {
+            clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
+            transition: all 0.3s ease;
+        }
+        .funnel-stage:hover {
+            transform: scale(1.05);
+            background-color: #84A594;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-[#6B8A7A]">Studio Viva Pilates</h1>
+                    <p class="text-xs text-gray-500 -mt-1">Plano de Ação Interativo</p>
+                </div>
+                <nav class="hidden md:flex md:space-x-8">
+                    <a href="#overview" class="nav-link active text-sm font-medium text-gray-600 pb-1">Visão Geral</a>
+                    <a href="#strategy" class="nav-link text-sm font-medium text-gray-600 pb-1">Estratégia</a>
+                    <a href="#action-plan" class="nav-link text-sm font-medium text-gray-600 pb-1">Plano de Ação</a>
+                    <a href="#metrics" class="nav-link text-sm font-medium text-gray-600 pb-1">Métricas</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="overview" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-800">Visão Geral do Mercado</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Esta seção analisa o ambiente competitivo de Guarabira, identificando o principal desafio — a presença de um serviço municipal gratuito — e as oportunidades que surgem a partir dele. Compreender este cenário é o primeiro passo para definir um posicionamento estratégico único e identificar os públicos-alvo mais promissores para o Studio Viva Pilates.</p>
+            
+            <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-200 mb-12">
+                <h3 class="font-bold text-lg text-center text-[#6B8A7A] mb-4">Resumo em Áudio do Plano de Ação</h3>
+                <p class="text-sm text-center text-gray-600 mb-4">Ouça um resumo dos principais pontos da estratégia para o Studio Viva Pilates.</p>
+                <audio controls class="w-full">
+                    <source src="studio-viva-pilates.mp3" type="audio/mpeg">
+                    Seu navegador não suporta o elemento de áudio.
+                </audio>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center mb-12">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="font-bold text-lg text-[#6B8A7A] mb-2">O Desafio Central e a Oportunidade Estratégica</h3>
+                    <p class="text-sm text-gray-700">O mercado de Guarabira é dominado por um serviço de Pilates gratuito oferecido pela prefeitura. Este serviço, focado em reabilitação para públicos específicos (idosos, pacientes do SUS), cria uma oportunidade única. Em vez de competir por preço, o Studio Viva Pilates é forçado a adotar um <strong class="font-semibold">posicionamento inequivocamente premium</strong>, focando em nichos não atendidos que buscam qualidade, especialização e uma experiência superior.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                     <h3 class="font-bold text-lg text-[#6B8A7A] mb-2">Públicos-Alvo Ideais</h3>
+                     <p class="text-sm text-gray-700">A segmentação do serviço público define claramente nossos clientes ideais:</p>
+                     <ul class="text-sm mt-2 space-y-1 list-disc list-inside text-gray-600">
+                        <li><strong>Profissionais (30-55 anos):</strong> Buscam alívio de estresse e melhora postural.</li>
+                        <li><strong>Gestantes e Pós-parto:</strong> Necessitam de cuidados especializados.</li>
+                        <li><strong>Atletas Amadores:</strong> Focam em performance e prevenção de lesões.</li>
+                        <li><strong>Entusiastas de Bem-Estar:</strong> Valorizam a estética e um estilo de vida saudável.</li>
+                     </ul>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h3 class="text-xl font-bold text-center mb-4 text-gray-800">Cenário Competitivo em Guarabira</h3>
+                <div class="chart-container">
+                    <canvas id="competitorChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-800">Estratégia de Diferenciação Premium</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Para justificar um valor superior e construir uma marca forte, a estratégia se baseia em quatro pilares fundamentais. Cada pilar é uma promessa de valor que nos diferencia da concorrência e ressoa com nosso público-alvo. Clique em cada pilar para explorar os detalhes da nossa proposta de valor.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="pillar-card bg-white p-6 rounded-lg shadow-md border border-gray-200" data-pillar="quality">
+                    <h3 class="font-bold text-lg text-[#6B8A7A] text-center">Qualidade e Especialização</h3>
+                </div>
+                <div class="pillar-card bg-white p-6 rounded-lg shadow-md border border-gray-200" data-pillar="environment">
+                    <h3 class="font-bold text-lg text-[#6B8A7A] text-center">Ambiente e Equipamentos</h3>
+                </div>
+                <div class="pillar-card bg-white p-6 rounded-lg shadow-md border border-gray-200" data-pillar="personalization">
+                    <h3 class="font-bold text-lg text-[#6B8A7A] text-center">Atendimento e Personalização</h3>
+                </div>
+                <div class="pillar-card bg-white p-6 rounded-lg shadow-md border border-gray-200" data-pillar="community">
+                    <h3 class="font-bold text-lg text-[#6B8A7A] text-center">Construção de Comunidade</h3>
+                </div>
+            </div>
+            <div id="pillar-details" class="mt-8 bg-white p-6 rounded-lg shadow-md border border-gray-200 hidden">
+                <h4 id="pillar-title" class="font-bold text-xl text-[#6B8A7A] mb-3"></h4>
+                <p id="pillar-text" class="text-gray-700"></p>
+            </div>
+        </section>
+
+        <section id="action-plan" class="mb-16 scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-800">Plano de Ação: Aquisição e Vendas</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">Esta seção detalha as táticas para atrair, engajar e converter leads em alunos. O plano integra marketing digital, parcerias locais e um processo de vendas consultivo, com a Aula Experimental como peça central para demonstrar nosso valor.</p>
+
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 mb-12">
+                <h3 class="text-xl font-bold text-center mb-6 text-gray-800">Funil de Vendas Estruturado</h3>
+                <div class="flex flex-col items-center space-y-1 cursor-pointer">
+                    <div class="funnel-stage bg-[#6B8A7A] text-white w-full max-w-md p-3 text-center" data-funnel="topo">
+                        <h4 class="font-semibold">Topo: Atração e Descoberta</h4>
+                    </div>
+                    <div class="funnel-stage bg-[#7AA08D] text-white w-full max-w-sm p-3 text-center" data-funnel="meio">
+                        <h4 class="font-semibold">Meio: Consideração e Engajamento</h4>
+                    </div>
+                    <div class="funnel-stage bg-[#8AB6A0] text-white w-full max-w-xs p-3 text-center" data-funnel="fundo">
+                        <h4 class="font-semibold">Fundo: Decisão e Conversão</h4>
+                    </div>
+                </div>
+                 <div id="funnel-details" class="mt-8 text-center hidden">
+                    <h4 id="funnel-title" class="font-bold text-xl text-[#6B8A7A] mb-3"></h4>
+                    <p id="funnel-text" class="text-gray-700 max-w-2xl mx-auto"></p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                <h3 class="text-xl font-bold text-center mb-6 text-gray-800">Roadmap de Implementação (12 Meses)</h3>
+                <div class="flex justify-center mb-4">
+                    <div class="flex space-x-2 rounded-lg bg-gray-200 p-1">
+                        <button class="roadmap-btn active bg-white text-[#6B8A7A] rounded-md px-3 py-1 text-sm font-medium" data-phase="1">Fase 1 (Meses 1-3)</button>
+                        <button class="roadmap-btn text-gray-600 px-3 py-1 text-sm font-medium" data-phase="2">Fase 2 (Meses 4-6)</button>
+                        <button class="roadmap-btn text-gray-600 px-3 py-1 text-sm font-medium" data-phase="3">Fase 3 (Meses 7-12)</button>
+                    </div>
+                </div>
+                <div id="roadmap-content"></div>
+            </div>
+        </section>
+        
+        <section id="metrics" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-center mb-2 text-gray-800">Métricas de Sucesso e Otimização</h2>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto mb-10">"O que não é medido, não é gerenciado." Esta seção apresenta os Indicadores-Chave de Desempenho (KPIs) para monitorar a saúde do negócio, avaliar a eficácia das estratégias e orientar decisões baseadas em dados para um crescimento sustentável.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="kpi-card bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+                    <h3 class="font-bold text-lg text-[#6B8A7A]">CAC</h3>
+                    <p class="text-sm text-gray-500 mb-2">Custo de Aquisição</p>
+                    <p class="text-3xl font-bold text-gray-800">R$ 100</p>
+                    <p class="text-xs text-gray-500">(Exemplo)</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+                    <h3 class="font-bold text-lg text-[#6B8A7A]">LTV</h3>
+                    <p class="text-sm text-gray-500 mb-2">Valor do Ciclo de Vida</p>
+                    <p class="text-3xl font-bold text-gray-800">R$ 3.000</p>
+                     <p class="text-xs text-gray-500">(Exemplo)</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+                    <h3 class="font-bold text-lg text-[#6B8A7A]">LTV / CAC</h3>
+                    <p class="text-sm text-gray-500 mb-2">Relação de Sustentabilidade</p>
+                    <p class="text-3xl font-bold text-gray-800">30:1</p>
+                     <p class="text-xs text-gray-500">(Excepcional)</p>
+                </div>
+                <div class="kpi-card bg-white p-6 rounded-lg shadow-md border border-gray-200 text-center">
+                    <h3 class="font-bold text-lg text-[#6B8A7A]">Churn Rate</h3>
+                    <p class="text-sm text-gray-500 mb-2">Taxa de Evasão Mensal</p>
+                    <p class="text-3xl font-bold text-gray-800">&lt; 5%</p>
+                     <p class="text-xs text-gray-500">(Meta)</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-center mb-4 text-gray-800">Net Promoter Score (NPS)</h3>
+                    <div class="chart-container" style="height: 280px; max-height: 300px;">
+                        <canvas id="npsChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-center mb-4 text-gray-800">Calculadora Interativa LTV/CAC</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="ltv-input" class="block text-sm font-medium text-gray-700">LTV (R$)</label>
+                            <input type="number" id="ltv-input" value="3000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6B8A7A] focus:ring-[#6B8A7A] sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="cac-input" class="block text-sm font-medium text-gray-700">CAC (R$)</label>
+                            <input type="number" id="cac-input" value="100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#6B8A7A] focus:ring-[#6B8A7A] sm:text-sm">
+                        </div>
+                        <div class="text-center pt-2">
+                            <p class="text-gray-600">Relação LTV/CAC:</p>
+                            <p id="ratio-result" class="text-3xl font-bold text-gray-800">30.0</p>
+                            <p id="ratio-health" class="text-sm font-semibold text-green-600">Excepcional</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const pillarDetails = {
+                quality: {
+                    title: "Qualidade e Especialização do Instrutor",
+                    text: "Este é o principal ativo. A estratégia foca em destacar certificações, formação contínua e experiência prática, oferecendo modalidades avançadas como Pilates para gestantes e para performance esportiva. Isso cria uma barreira de entrada para concorrentes e justifica um preço premium."
+                },
+                environment: {
+                    title: "Ambiente e Equipamentos de Ponta",
+                    text: "O espaço físico deve comunicar exclusividade e bem-estar. O investimento em um ambiente 'instagramável', equipamentos de marcas reconhecidas, limpeza impecável e detalhes sensoriais (aroma, iluminação) cria uma experiência que encanta e diferencia o estúdio de ambientes clínicos ou funcionais."
+                },
+                personalization: {
+                    title: "Atendimento e Personalização Extrema",
+                    text: "A promessa é que 'aqui, você não é apenas mais um número'. Isso se traduz em turmas extremamente reduzidas (3-4 alunos), avaliações iniciais detalhadas, acompanhamento de progresso individualizado e comunicação proativa, garantindo que cada aluno sinta que seu plano de aula é único."
+                },
+                community: {
+                    title: "Construção de uma Comunidade Forte",
+                    text: "Um estúdio boutique de sucesso fomenta um senso de pertencimento. A estratégia visa criar um lugar onde os alunos se conectam e se sentem parte de um grupo, através de um ambiente de apoio e eventos exclusivos. Isso aumenta drasticamente a motivação e as taxas de retenção."
+                }
+            };
+
+            const funnelDetails = {
+                topo: {
+                    title: "Topo: Atração e Descoberta",
+                    text: "Nesta fase, despertamos o interesse de potenciais clientes que têm um problema latente (dor, estresse). As ferramentas são anúncios hiper-localizados no Instagram e Facebook, um perfil otimizado no Google Meu Negócio e parcerias com profissionais de saúde locais."
+                },
+                meio: {
+                    title: "Meio: Consideração e Engajamento",
+                    text: "O lead já demonstrou interesse. Agora, construímos confiança e demonstramos nosso valor. A ferramenta mais poderosa é a Aula Experimental (gratuita ou com custo simbólico), que serve como o principal ímã para mover o lead para a próxima etapa, reduzindo o risco percebido."
+                },
+                fundo: {
+                    title: "Fundo: Decisão e Conversão",
+                    text: "Após a experiência da aula, o lead está pronto para decidir. O processo é uma venda consultiva: entender o feedback, conectar a experiência com os objetivos do lead, apresentar os planos como solução e superar objeções, finalizando com um fechamento claro."
+                }
+            };
+
+            const roadmapData = {
+                '1': {
+                    title: "Fase 1: Fundação e Lançamento",
+                    focus: "Construir os alicerces da marca e da presença digital para começar a atrair clientes de forma profissional.",
+                    actions: [
+                        "<strong>Mês 1:</strong> Desenvolver identidade visual e otimizar Google Meu Negócio.",
+                        "<strong>Mês 2:</strong> Lançar website profissional e iniciar contato com parceiros.",
+                        "<strong>Mês 3:</strong> Ativar primeira campanha de Meta Ads e estruturar processo de venda."
+                    ]
+                },
+                '2': {
+                    title: "Fase 2: Tração e Construção de Comunidade",
+                    focus: "Acelerar a aquisição, fortalecer o relacionamento com a base inicial e transformar alunos em promotores.",
+                    actions: [
+                        "<strong>Mês 4:</strong> Lançar programa de indicação 'Viva Juntos' e primeiro workshop temático.",
+                        "<strong>Mês 5:</strong> Gravar depoimentos em vídeo e implementar a primeira pesquisa NPS.",
+                        "<strong>Mês 6:</strong> Realizar evento exclusivo para alunos e fazer análise semestral de KPIs."
+                    ]
+                },
+                '3': {
+                    title: "Fase 3: Otimização e Expansão",
+                    focus: "Usar dados para refinar operações, otimizar investimentos e explorar novas fontes de receita.",
+                    actions: [
+                        "<strong>Meses 7-9:</strong> Otimizar campanhas de Meta Ads para reduzir CAC e aprofundar parcerias.",
+                        "<strong>Meses 10-12:</strong> Introduzir serviços complementares (ex: pacotes com nutricionista) e planejar o próximo ano."
+                    ]
+                }
+            };
+            
+            const competitorCtx = document.getElementById('competitorChart').getContext('2d');
+            new Chart(competitorCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Viva Pilates (Potencial)', 'Serviço Municipal', 'Outros Studios', 'Academias'],
+                    datasets: [{
+                        label: 'Nível de Preço',
+                        data: [4, 1, 3, 2],
+                        backgroundColor: '#6B8A7A',
+                    }, {
+                        label: 'Nível de Especialização',
+                        data: [5, 3, 4, 1],
+                        backgroundColor: '#A3B9A4',
+                    }, {
+                        label: 'Qualidade da Experiência',
+                        data: [5, 2, 3, 2],
+                        backgroundColor: '#D1E0D3',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1,
+                                callback: function(value) {
+                                    const labels = ['Nulo', 'Baixo', 'Médio', 'Alto', 'Muito Alto', 'Premium'];
+                                    return labels[value];
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Comparativo de Posicionamento no Mercado'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    const value = context.parsed.y;
+                                    const labels = ['Nulo', 'Baixo', 'Médio', 'Alto', 'Muito Alto', 'Premium'];
+                                    label += labels[value];
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const npsCtx = document.getElementById('npsChart').getContext('2d');
+            new Chart(npsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Promotores (9-10)', 'Neutros (7-8)', 'Detratores (0-6)'],
+                    datasets: [{
+                        label: 'NPS Breakdown',
+                        data: [75, 15, 10],
+                        backgroundColor: ['#6B8A7A', '#D1E0D3', '#E8A09A'],
+                        borderColor: '#FDFBF8',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: true,
+                            text: 'NPS Exemplo: Pontuação 65 (Excelente)'
+                        }
+                    }
+                }
+            });
+
+            document.querySelectorAll('.pillar-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const pillarKey = card.dataset.pillar;
+                    const details = pillarDetails[pillarKey];
+                    document.getElementById('pillar-title').textContent = details.title;
+                    document.getElementById('pillar-text').innerHTML = details.text;
+                    document.getElementById('pillar-details').classList.remove('hidden');
+                });
+            });
+
+            document.querySelectorAll('.funnel-stage').forEach(stage => {
+                stage.addEventListener('click', () => {
+                    const funnelKey = stage.dataset.funnel;
+                    const details = funnelDetails[funnelKey];
+                    document.getElementById('funnel-title').textContent = details.title;
+                    document.getElementById('funnel-text').innerHTML = details.text;
+                    document.getElementById('funnel-details').classList.remove('hidden');
+                });
+            });
+
+            const roadmapContent = document.getElementById('roadmap-content');
+            const roadmapBtns = document.querySelectorAll('.roadmap-btn');
+
+            function updateRoadmap(phase) {
+                const data = roadmapData[phase];
+                roadmapContent.innerHTML = `
+                    <div class="p-4">
+                        <h4 class="font-bold text-xl text-[#6B8A7A] mb-2">${data.title}</h4>
+                        <p class="text-sm text-gray-600 italic mb-4">${data.focus}</p>
+                        <ul class="space-y-2">
+                            ${data.actions.map(action => `<li class="flex items-start"><span class="text-[#6B8A7A] mr-2 mt-1">&#10003;</span><span class="text-gray-700">${action}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                roadmapBtns.forEach(btn => {
+                    btn.classList.remove('active', 'bg-white', 'text-[#6B8A7A]');
+                    if (btn.dataset.phase === phase) {
+                        btn.classList.add('active', 'bg-white', 'text-[#6B8A7A]');
+                    } else {
+                        btn.classList.add('text-gray-600');
+                    }
+                });
+            }
+
+            roadmapBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    updateRoadmap(btn.dataset.phase);
+                });
+            });
+
+            updateRoadmap('1');
+
+            const ltvInput = document.getElementById('ltv-input');
+            const cacInput = document.getElementById('cac-input');
+            const ratioResult = document.getElementById('ratio-result');
+            const ratioHealth = document.getElementById('ratio-health');
+
+            function calculateRatio() {
+                const ltv = parseFloat(ltvInput.value) || 0;
+                const cac = parseFloat(cacInput.value) || 1;
+                const ratio = ltv / cac;
+                
+                ratioResult.textContent = ratio.toFixed(1);
+
+                if (ratio >= 5) {
+                    ratioHealth.textContent = "Excepcional";
+                    ratioHealth.className = "text-sm font-semibold text-green-600";
+                } else if (ratio >= 3) {
+                    ratioHealth.textContent = "Saudável";
+                    ratioHealth.className = "text-sm font-semibold text-blue-600";
+                } else if (ratio >= 1) {
+                    ratioHealth.textContent = "Atenção";
+                    ratioHealth.className = "text-sm font-semibold text-yellow-600";
+                } else {
+                    ratioHealth.textContent = "Inviável";
+                    ratioHealth.className = "text-sm font-semibold text-red-600";
+                }
+            }
+
+            ltvInput.addEventListener('input', calculateRatio);
+            cacInput.addEventListener('input', calculateRatio);
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
