@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Estratégica: Moda Infantil Maceió 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F766E', // Teal 700
+                        secondary: '#F59E0B', // Amber 500
+                        bgWarm: '#FAFAF9', // Stone 50
+                        surface: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; background-color: #FAFAF9; color: #1C1917; }
+        
+        /* Chart Container Styling */
+       .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        
+        @media (min-width: 768px) {
+           .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+       .nav-item.active {
+            background-color: #E0F2F1;
+            color: #0F766E;
+            border-right: 4px solid #0F766E;
+        }
+
+       .journey-step {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+       .journey-step:hover,.journey-step.active-step {
+            background-color: #0F766E;
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="flex flex-col md:flex-row h-screen overflow-hidden">
+
+    <aside class="w-full md:w-64 bg-white shadow-lg z-20 flex-shrink-0 flex flex-col h-auto md:h-full">
+        <div class="p-6 border-b border-gray-100 flex items-center justify-between md:block">
+            <div>
+                <h1 class="text-xl font-bold text-primary">Moda Kids <span class="text-secondary">Analytics</span></h1>
+                <p class="text-xs text-gray-500 mt-1">Maceió • Estratégia 2025</p>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-gray-600 focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <nav id="sidebar-nav" class="flex-1 overflow-y-auto hidden md:block py-4">
+            <ul class="space-y-1">
+                <li>
+                    <button onclick="navigateTo('intro')" class="nav-item w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors flex items-center active" id="nav-intro">
+                        <i class="fas fa-play-circle w-6"></i> Vídeo de Introdução
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo('dashboard')" class="nav-item w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors flex items-center" id="nav-dashboard">
+                        <i class="fas fa-home w-6"></i> Visão Geral
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo('market')" class="nav-item w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors flex items-center" id="nav-market">
+                        <i class="fas fa-chart-pie w-6"></i> Mercado & Segmentação
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo('media')" class="nav-item w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors flex items-center" id="nav-media">
+                        <i class="fas fa-bullhorn w-6"></i> Performance de Ads
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo('journey')" class="nav-item w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors flex items-center" id="nav-journey">
+                        <i class="fas fa-map-signs w-6"></i> Jornada de Compra
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo('operations')" class="nav-item w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors flex items-center" id="nav-operations">
+                        <i class="fas fa-cogs w-6"></i> Operação Híbrida
+                    </button>
+                </li>
+                <li>
+                    <button onclick="navigateTo('retention')" class="nav-item w-full text-left px-6 py-3 hover:bg-gray-50 transition-colors flex items-center" id="nav-retention">
+                        <i class="fas fa-heart w-6"></i> Pós-venda & CRM
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="p-4 border-t border-gray-100 hidden md:block">
+            <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                <p class="text-xs font-semibold text-blue-800 mb-1"><i class="fas fa-calendar-alt mr-1"></i> Foco Atual</p>
+                <p class="text-xs text-blue-600">Plano de 90 dias</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto bg-bgWarm relative">
+        
+        <div class="md:hidden bg-white shadow-sm p-4 sticky top-0 z-10 text-center text-sm font-semibold text-gray-500" id="mobile-header-title">
+            Vídeo de Introdução
+        </div>
+
+        <div class="p-4 md:p-8 max-w-7xl mx-auto pb-20">
+
+            <!-- SEÇÃO DE VÍDEO INTRODUTÓRIA -->
+            <section id="intro" class="view-section animate-fade-in block">
+                <header class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">Boas-vindas</h2>
+                    <p class="text-gray-600 mt-2 text-lg">Apresentação da estratégia e visão para o futuro.</p>
+                </header>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
+                    <div class="w-full max-w-5xl aspect-video bg-black rounded-lg overflow-hidden shadow-lg relative group">
+                        <!-- LOCAL PARA INSERIR SEU VÍDEO .MP4 ABAIXO -->
+                        <video class="w-full h-full object-contain" controls poster="https://via.placeholder.com/1280x720/0F766E/FFFFFF?text=Apresenta%C3%A7%C3%A3o+Estrat%C3%A9gica">
+                            <source src="Plano__Colorinda_Store.mp4" type="video/mp4">
+                            Seu navegador não suporta a tag de vídeo.
+                        </video>
+                    </div>
+                    
+                    <div class="mt-6 text-center max-w-2xl">
+                        <h3 class="text-xl font-bold text-primary mb-2">Olá! Vamos transformar o varejo infantil em Maceió.</h3>
+                        <p class="text-gray-600">
+                            Preparei este material interativo para navegarmos juntos pelos dados do mercado, benchmarks de anúncios e oportunidades operacionais. 
+                            Assista ao vídeo acima para uma introdução rápida antes de explorar os dados no menu lateral.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <button onclick="navigateTo('dashboard')" class="bg-primary hover:bg-teal-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:-translate-y-1 flex items-center">
+                            Começar a Análise <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="dashboard" class="view-section hidden animate-fade-in">
+                <header class="mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">Diagnóstico Executivo</h2>
+                    <p class="text-gray-600 mt-2 text-lg">Resumo estratégico para lojas híbridas em Maceió (2025).</p>
+                    <div class="mt-4 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <p class="text-gray-700">
+                            Este painel consolida as <strong>5 oportunidades prioritárias</strong> identificadas para alavancar sua operação em Maceió. O foco é equilibrar ações de <strong>curto prazo (0-90 dias)</strong> para caixa rápido com estruturas de <strong>longo prazo (90-180 dias)</strong> para sustentabilidade.
+                        </p>
+                    </div>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-secondary">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">CAC Estimado (Maceió)</p>
+                                <h3 class="text-2xl font-bold text-gray-800">R$ 38,50</h3>
+                            </div>
+                            <div class="p-2 bg-yellow-50 rounded-lg text-secondary"><i class="fas fa-tags"></i></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Média p/ e-commerce moda infantil regional</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-primary">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Ticket Médio Alvo</p>
+                                <h3 class="text-2xl font-bold text-gray-800">R$ 280,00</h3>
+                            </div>
+                            <div class="p-2 bg-teal-50 rounded-lg text-primary"><i class="fas fa-shopping-bag"></i></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Otimizado via kits e upsell</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Potencial LTV (6 meses)</p>
+                                <h3 class="text-2xl font-bold text-gray-800">R$ 850,00</h3>
+                            </div>
+                            <div class="p-2 bg-blue-50 rounded-lg text-blue-500"><i class="fas fa-sync"></i></div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2">Com programa de fidelidade ativo</p>
+                    </div>
+                </div>
+
+                <h3 class="text-xl font-bold text-gray-800 mb-4">5 Oportunidades Prioritárias (Matriz Impacto x Esforço)</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col md:flex-row items-start md:items-center gap-4 hover:shadow-md transition-shadow">
+                        <div class="bg-green-100 text-green-700 px-3 py-1 rounded text-xs font-bold whitespace-nowrap">ALTO IMPACTO / BAIXO ESFORÇO</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">1. Kits de "Mesversário" & Estações</h4>
+                            <p class="text-sm text-gray-600">Criar bundles temáticos (ex: Kit Verão Maceió) para elevar o Ticket Médio imediato.</p>
+                        </div>
+                        <button onclick="navigateTo('operations')" class="text-primary text-sm font-semibold hover:underline">Ver Plano &rarr;</button>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col md:flex-row items-start md:items-center gap-4 hover:shadow-md transition-shadow">
+                        <div class="bg-green-100 text-green-700 px-3 py-1 rounded text-xs font-bold whitespace-nowrap">ALTO IMPACTO / MÉDIO ESFORÇO</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">2. Logística "Express" Local</h4>
+                            <p class="text-sm text-gray-600">Implementar entrega via motoboy em até 4h para bairros nobres (Ponta Verde, Jatiúca).</p>
+                        </div>
+                        <button onclick="navigateTo('operations')" class="text-primary text-sm font-semibold hover:underline">Ver Logística &rarr;</button>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col md:flex-row items-start md:items-center gap-4 hover:shadow-md transition-shadow">
+                        <div class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded text-xs font-bold whitespace-nowrap">MÉDIO IMPACTO / BAIXO ESFORÇO</div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-800">3. Recuperação via WhatsApp</h4>
+                            <p class="text-sm text-gray-600">Automação simples para carrinhos abandonados e leads do Instagram.</p>
+                        </div>
+                        <button onclick="navigateTo('retention')" class="text-primary text-sm font-semibold hover:underline">Ver CRM &rarr;</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="market" class="view-section hidden animate-fade-in">
+                <header class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Tamanho de Mercado & Segmentação</h2>
+                    <p class="text-gray-600 mt-2">
+                        Análise demográfica focada em Maceió. Entender onde está o dinheiro e quem decide a compra é crucial para direcionar o tráfego pago.
+                    </p>
+                </header>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-lg mb-4 text-gray-800">Distribuição de Renda (Público-Alvo)</h3>
+                        <p class="text-sm text-gray-500 mb-4">Foco em classes A/B e C+ para produtos de valor agregado.</p>
+                        <div class="chart-container">
+                            <canvas id="incomeChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-lg mb-4 text-gray-800">Demanda por Faixa Etária (Filhos)</h3>
+                        <p class="text-sm text-gray-500 mb-4">Dados baseados em volume de busca e natalidade local.</p>
+                        <div class="chart-container">
+                            <canvas id="ageChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-lg mb-4 text-gray-800">Radar de Bairros: Onde Investir em Ads?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="border rounded-lg p-4 bg-teal-50 border-teal-200">
+                            <h4 class="font-bold text-primary mb-2">Alta Renda / Densidade</h4>
+                            <ul class="text-sm space-y-2 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i> Ponta Verde</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i> Jatiúca</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-2"></i> Pajuçara</li>
+                            </ul>
+                            <p class="text-xs text-gray-500 mt-3">Estratégia: Ads de Coleção, Luxo, Entrega Expressa.</p>
+                        </div>
+                        <div class="border rounded-lg p-4 bg-yellow-50 border-yellow-200">
+                            <h4 class="font-bold text-yellow-700 mb-2">Média Renda / Expansão</h4>
+                            <ul class="text-sm space-y-2 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-circle text-yellow-500 text-xs mr-2"></i> Serraria</li>
+                                <li class="flex items-center"><i class="fas fa-circle text-yellow-500 text-xs mr-2"></i> Antares</li>
+                                <li class="flex items-center"><i class="fas fa-circle text-yellow-500 text-xs mr-2"></i> Farol</li>
+                            </ul>
+                            <p class="text-xs text-gray-500 mt-3">Estratégia: Custo-benefício, Kits Promocionais.</p>
+                        </div>
+                        <div class="border rounded-lg p-4 bg-gray-50 border-gray-200">
+                            <h4 class="font-bold text-gray-700 mb-2">Alto Volume / Preço</h4>
+                            <ul class="text-sm space-y-2 text-gray-700">
+                                <li class="flex items-center"><i class="fas fa-dot-circle text-gray-400 mr-2"></i> Benedito Bentes</li>
+                                <li class="flex items-center"><i class="fas fa-dot-circle text-gray-400 mr-2"></i> Cidade Universitária</li>
+                            </ul>
+                            <p class="text-xs text-gray-500 mt-3">Estratégia: Liquidações, Cupons de Primeira Compra.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="media" class="view-section hidden animate-fade-in">
+                <header class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Performance de Mídia Paga</h2>
+                    <p class="text-gray-600 mt-2">
+                        Benchmarks de mercado para Moda Infantil. Utilize o simulador para projetar cenários de investimento.
+                    </p>
+                </header>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <h3 class="font-bold text-lg mb-2 text-gray-800">CAC x Canal (Benchmark)</h3>
+                        <div class="chart-container">
+                            <canvas id="cacChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-primary/5 p-6 rounded-xl border border-primary/20">
+                        <h3 class="font-bold text-lg mb-4 text-primary"><i class="fas fa-calculator mr-2"></i> Simulador de Resultados (Mensal)</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Orçamento Mensal (R$)</label>
+                                <input type="range" id="budgetInput" min="1000" max="20000" step="500" value="3000" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                                <div class="text-right font-bold text-primary text-lg" id="budgetValue">R$ 3.000</div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-xs text-gray-500">Cliques Estimados (CPC R$ 0,80)</p>
+                                    <p class="font-bold text-lg" id="simClicks">3.750</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <p class="text-xs text-gray-500">Conversões (1.2%)</p>
+                                    <p class="font-bold text-lg text-secondary" id="simConversions">45</p>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded border-t-4 border-primary mt-2">
+                                <p class="text-sm text-gray-500">Receita Estimada (Ticket R$ 250)</p>
+                                <p class="font-bold text-2xl text-gray-800" id="simRevenue">R$ 11.250</p>
+                                <p class="text-xs text-green-600 font-semibold mt-1" id="simROAS">ROAS: 3.75</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="font-bold text-lg mb-4 text-gray-800">Estratégia de Criativos por Canal</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <div class="flex items-center text-blue-600 font-bold"><i class="fab fa-facebook-square text-xl mr-2"></i> Meta (IG/FB)</div>
+                            <p class="text-sm text-gray-600"><strong>Foco:</strong> Desejo e Prova Social.</p>
+                            <ul class="text-xs text-gray-500 list-disc ml-4 space-y-1">
+                                <li>Carrossel de Looks Combinados</li>
+                                <li>Vídeos de "Mãe vestindo filho" (UGC)</li>
+                                <li>Anúncios de Catálogo (DPA) para remarketing</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center text-red-500 font-bold"><i class="fab fa-google text-xl mr-2"></i> Google Ads</div>
+                            <p class="text-sm text-gray-600"><strong>Foco:</strong> Intenção de Compra.</p>
+                            <ul class="text-xs text-gray-500 list-disc ml-4 space-y-1">
+                                <li>Shopping: "Roupa festa infantil", "Conjunto algodão"</li>
+                                <li>Search: "Loja roupa bebê Maceió" (Local SEO)</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center text-black font-bold"><i class="fab fa-tiktok text-xl mr-2"></i> TikTok</div>
+                            <p class="text-sm text-gray-600"><strong>Foco:</strong> Viralidade e Bastidores.</p>
+                            <ul class="text-xs text-gray-500 list-disc ml-4 space-y-1">
+                                <li>Challenges de transição de look</li>
+                                <li>Empacotando pedidos (ASMR)</li>
+                                <li>Dicas de maternidade + Produto</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="journey" class="view-section hidden animate-fade-in">
+                <header class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Mapa da Jornada de Compra</h2>
+                    <p class="text-gray-600 mt-2">
+                        Clique nas etapas abaixo para ver os pontos de atrito e as ações recomendadas para o público de Maceió.
+                    </p>
+                </header>
+
+                <div class="flex flex-col md:flex-row justify-between items-stretch gap-2 mb-8 overflow-x-auto pb-4">
+                    <div onclick="updateJourney('discovery')" class="journey-step active-step flex-1 bg-white border border-gray-200 p-4 rounded-lg text-center min-w-[140px]" id="step-discovery">
+                        <div class="text-2xl mb-2 text-primary"><i class="fas fa-search"></i></div>
+                        <h4 class="font-bold text-sm">1. Descoberta</h4>
+                    </div>
+                    <div class="hidden md:flex items-center justify-center text-gray-300"><i class="fas fa-chevron-right"></i></div>
+                    
+                    <div onclick="updateJourney('consideration')" class="journey-step flex-1 bg-white border border-gray-200 p-4 rounded-lg text-center min-w-[140px]" id="step-consideration">
+                        <div class="text-2xl mb-2 text-primary"><i class="fas fa-comments"></i></div>
+                        <h4 class="font-bold text-sm">2. Consideração</h4>
+                    </div>
+                    <div class="hidden md:flex items-center justify-center text-gray-300"><i class="fas fa-chevron-right"></i></div>
+
+                    <div onclick="updateJourney('purchase')" class="journey-step flex-1 bg-white border border-gray-200 p-4 rounded-lg text-center min-w-[140px]" id="step-purchase">
+                        <div class="text-2xl mb-2 text-primary"><i class="fas fa-shopping-cart"></i></div>
+                        <h4 class="font-bold text-sm">3. Compra</h4>
+                    </div>
+                    <div class="hidden md:flex items-center justify-center text-gray-300"><i class="fas fa-chevron-right"></i></div>
+
+                    <div onclick="updateJourney('retention')" class="journey-step flex-1 bg-white border border-gray-200 p-4 rounded-lg text-center min-w-[140px]" id="step-retention">
+                        <div class="text-2xl mb-2 text-primary"><i class="fas fa-gift"></i></div>
+                        <h4 class="font-bold text-sm">4. Pós-Venda</h4>
+                    </div>
+                </div>
+
+                <div id="journey-detail" class="bg-white p-8 rounded-xl shadow-md border-t-4 border-primary">
+                    </div>
+            </section>
+
+            <section id="operations" class="view-section hidden animate-fade-in">
+                <header class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Processos & Omnichannel</h2>
+                        <p class="text-gray-600 mt-2">Plano de ação operacional para integrar loja física e online.</p>
+                    </div>
+                    
+                    <div class="mt-4 md:mt-0 bg-gray-200 p-1 rounded-lg flex text-sm font-semibold">
+                        <button onclick="toggleOps('short')" id="btn-short" class="px-4 py-2 rounded-md bg-white shadow text-gray-800 transition-all">0-90 Dias (Rápido)</button>
+                        <button onclick="toggleOps('long')" id="btn-long" class="px-4 py-2 rounded-md text-gray-500 hover:text-gray-800 transition-all">90-180 Dias (Estutural)</button>
+                    </div>
+                </header>
+
+                <div id="ops-short" class="ops-content block">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200">
+                            <h3 class="text-lg font-bold text-secondary mb-4"><i class="fas fa-bolt mr-2"></i> Logística & Estoque (Imediato)</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Contratar motoboy fixo ou parceiro (Loggi/Uber Flash) para "Entrega em 4h" (Raio 5km).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Implementar "Retire na Loja" (Click & Collect) no checkout do site.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Auditoria de estoque físico: Separar estoque de "Giro Rápido" para o online.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200">
+                            <h3 class="text-lg font-bold text-secondary mb-4"><i class="fas fa-store mr-2"></i> Comercial & Vendas</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Treinar equipe de loja para atender WhatsApp Business (Script de Vendas).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Criar política de "Troca Fácil": Comprou online, troca na loja física (gera fluxo).</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="ops-long" class="ops-content hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200">
+                            <h3 class="text-lg font-bold text-primary mb-4"><i class="fas fa-server mr-2"></i> Tecnologia & Estrutura</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Integração ERP Completa: Estoque unificado em tempo real (Bling/Tiny + E-commerce).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Etiquetagem RFID ou Código de Barras padrão para agilizar expedição.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200">
+                            <h3 class="text-lg font-bold text-primary mb-4"><i class="fas fa-chart-line mr-2"></i> Expansão</h3>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Negociar tabelas de frete para capitais vizinhas (Recife/Aracaju).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <input type="checkbox" class="mt-1 mr-3 h-4 w-4 text-primary rounded focus:ring-primary">
+                                    <span class="text-gray-700 text-sm">Desenvolver App próprio ou Clube de Assinatura (Box Mensal).</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="retention" class="view-section hidden animate-fade-in">
+                <header class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Fidelização & LTV</h2>
+                    <p class="text-gray-600 mt-2">
+                        Reter um cliente custa 5x menos que adquirir um novo. Estratégias para aumentar a Taxa de Recompra.
+                    </p>
+                </header>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                    <div class="lg:col-span-1 space-y-4">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-pink-400">
+                            <h4 class="font-bold text-gray-800">Programa "Crescer Juntos"</h4>
+                            <p class="text-sm text-gray-600 mt-2">Cadastro da data de nascimento da criança. Envio de cupom 30 dias antes do aniversário e dicas de tamanho conforme a idade.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-purple-400">
+                            <h4 class="font-bold text-gray-800">Unboxing "Instagramável"</h4>
+                            <p class="text-sm text-gray-600 mt-2">Incluir cheirinho da loja, carta escrita à mão e um adesivo/brinde simples na caixa.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border-l-4 border-green-400">
+                            <h4 class="font-bold text-gray-800">Cashback Local</h4>
+                            <p class="text-sm text-gray-600 mt-2">10% do valor da compra volta como crédito para usar em até 45 dias (força a volta rápida).</p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-lg text-gray-800">Impacto da Retenção no Faturamento Anual</h3>
+                        </div>
+                        
+                        <div class="mb-6 bg-gray-50 p-4 rounded-lg">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta de Taxa de Retenção (%)</label>
+                            <input type="range" id="retentionInput" min="10" max="60" value="20" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary">
+                            <div class="flex justify-between mt-2">
+                                <span class="text-xs text-gray-500">Atual (Estimado): 15%</span>
+                                <span class="text-lg font-bold text-primary" id="retentionValue">20%</span>
+                                <span class="text-xs text-gray-500">Meta Alta: 60%</span>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <canvas id="retentionChart"></canvas>
+                        </div>
+                        <p class="text-xs text-center text-gray-500 mt-2">Projeção acumulada baseada em base de 1.000 clientes.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // --- Navigation Logic ---
+        function navigateTo(viewId) {
+            // Update Tab Styles
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('active', 'bg-blue-50', 'text-primary', 'border-r-4', 'border-primary');
+                el.classList.add('text-gray-600');
+            });
+            const activeBtn = document.getElementById('nav-' + viewId);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-gray-600');
+
+            // Update Header Title (Mobile)
+            const titles = {
+                'intro': 'Vídeo de Introdução',
+                'dashboard': 'Visão Geral',
+                'market': 'Mercado',
+                'media': 'Mídia & Ads',
+                'journey': 'Jornada',
+                'operations': 'Operações',
+                'retention': 'Fidelização'
+            };
+            const mobileTitle = document.getElementById('mobile-header-title');
+            if (mobileTitle) {
+                mobileTitle.innerText = titles[viewId];
+            }
+
+            // Switch Views
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.add('hidden');
+            });
+            const target = document.getElementById(viewId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+            
+            // Trigger chart resize if needed
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        // --- Mobile Menu ---
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const nav = document.getElementById('sidebar-nav');
+            nav.classList.toggle('hidden');
+        });
+
+        // --- Operations Toggle ---
+        function toggleOps(type) {
+            const shortBtn = document.getElementById('btn-short');
+            const longBtn = document.getElementById('btn-long');
+            const shortContent = document.getElementById('ops-short');
+            const longContent = document.getElementById('ops-long');
+
+            if (type === 'short') {
+                shortBtn.classList.add('bg-white', 'shadow', 'text-gray-800');
+                shortBtn.classList.remove('text-gray-500');
+                longBtn.classList.remove('bg-white', 'shadow', 'text-gray-800');
+                longBtn.classList.add('text-gray-500');
+                
+                shortContent.classList.remove('hidden');
+                longContent.classList.add('hidden');
+            } else {
+                longBtn.classList.add('bg-white', 'shadow', 'text-gray-800');
+                longBtn.classList.remove('text-gray-500');
+                shortBtn.classList.remove('bg-white', 'shadow', 'text-gray-800');
+                shortBtn.classList.add('text-gray-500');
+                
+                longContent.classList.remove('hidden');
+                shortContent.classList.add('hidden');
+            }
+        }
+
+        // --- Chart Configurations ---
+        
+        // 1. Income Chart
+        const incomeCtx = document.getElementById('incomeChart').getContext('2d');
+        new Chart(incomeCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Classe A/B (Alta)', 'Classe C+ (Média-Alta)', 'Classe C/D (Massa)'],
+                datasets: [{
+                    data: [25, 45, 30],
+                    backgroundColor: ['#0F766E', '#F59E0B', '#E5E7EB'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // 2. Age Chart
+        const ageCtx = document.getElementById('ageChart').getContext('2d');
+        new Chart(ageCtx, {
+            type: 'bar',
+            data: {
+                labels: ['0-12 Meses', '1-3 Anos', '4-8 Anos', '9-12 Anos'],
+                datasets: [{
+                    label: 'Demanda de Mercado',
+                    data: [85, 90, 60, 40],
+                    backgroundColor: '#0F766E',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, grid: { display: false } }
+                }
+            }
+        });
+
+        // 3. CAC Chart
+        const cacCtx = document.getElementById('cacChart').getContext('2d');
+        new Chart(cacCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Meta (FB/IG)', 'Google Ads', 'TikTok'],
+                datasets: [
+                    {
+                        label: 'CAC (R$)',
+                        data: [32, 45, 25],
+                        backgroundColor: '#EF4444',
+                        order: 1
+                    },
+                    {
+                        label: 'LTV Est. (6 meses)',
+                        data: [180, 220, 120],
+                        backgroundColor: '#10B981',
+                        type: 'line',
+                        order: 0,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // 4. Retention Simulator Chart (Dynamic)
+        const retentionCtx = document.getElementById('retentionChart').getContext('2d');
+        let retentionChart = new Chart(retentionCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                datasets: [
+                    {
+                        label: 'Receita Acumulada (Sem Fidelização)',
+                        data: [10000, 18000, 25000, 31000, 36000, 40000],
+                        borderColor: '#9CA3AF',
+                        borderDash: [5, 5],
+                        fill: false
+                    },
+                    {
+                        label: 'Receita Projetada (Com Fidelização)',
+                        data: [10000, 19500, 29000, 39500, 51000, 64000],
+                        borderColor: '#0F766E',
+                        backgroundColor: 'rgba(15, 118, 110, 0.1)',
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- Logic: Media Simulator ---
+        const budgetInput = document.getElementById('budgetInput');
+        const budgetDisplay = document.getElementById('budgetValue');
+        
+        function updateMediaSim() {
+            const budget = parseInt(budgetInput.value);
+            budgetDisplay.innerText = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(budget);
+            
+            // Logic assumptions: CPC Avg R$ 0.80, Conv Rate 1.2%, Ticket R$ 250
+            const cpc = 0.80;
+            const clicks = Math.floor(budget / cpc);
+            const convRate = 0.012;
+            const conversions = Math.floor(clicks * convRate);
+            const ticket = 250;
+            const revenue = conversions * ticket;
+            const roas = (revenue / budget).toFixed(2);
+
+            document.getElementById('simClicks').innerText = new Intl.NumberFormat('pt-BR').format(clicks);
+            document.getElementById('simConversions').innerText = conversions;
+            document.getElementById('simRevenue').innerText = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(revenue);
+            document.getElementById('simROAS').innerText = `ROAS: ${roas}`;
+        }
+        
+        budgetInput.addEventListener('input', updateMediaSim);
+
+        // --- Logic: Retention Simulator ---
+        const retInput = document.getElementById('retentionInput');
+        const retDisplay = document.getElementById('retentionValue');
+
+        retInput.addEventListener('input', function() {
+            const val = this.value;
+            retDisplay.innerText = val + '%';
+            
+            // Update chart data based on retention factor roughly
+            // Base growth vs exponential growth simulation
+            const base = 10000;
+            const newData = [];
+            let cumulative = 0;
+            
+            for(let i=1; i<=6; i++) {
+                // Formula: Base sales + (Base sales * retention_rate * time_compounding)
+                let monthRev = base + (base * (val/100) * (i*0.8)); 
+                cumulative += monthRev;
+                newData.push(cumulative);
+            }
+            
+            retentionChart.data.datasets[1].data = newData;
+            retentionChart.update();
+        });
+
+        // --- Logic: Journey Map Interaction ---
+        const journeyData = {
+            'discovery': {
+                title: 'Etapa 1: Descoberta (Consciência)',
+                friction: 'Pais não sabem que a loja existe ou acham que é "cara demais" pela vitrine.',
+                channels: 'Instagram (Reels), Google Maps, Indicação (Mães da Escola).',
+                action: '<strong>Ação:</strong> Tráfego pago geolocalizado (Raio 3km) mostrando "Kits Promocionais" para quebrar objeção de preço. Parceria com influencers micro-locais (mães reais).'
+            },
+            'consideration': {
+                title: 'Etapa 2: Consideração (Dúvida)',
+                friction: 'Dúvida sobre tamanho (modelagem grande ou pequena?) e tecido (é antialérgico?).',
+                channels: 'WhatsApp, Direct, Site (Tabela de Medidas).',
+                action: '<strong>Ação:</strong> Botão de WhatsApp flutuante no site. Vídeos no destaque do Insta mostrando o tecido de perto e comparando tamanhos com objetos reais.'
+            },
+            'purchase': {
+                title: 'Etapa 3: Compra (Decisão)',
+                friction: 'Frete caro para bairros próximos ou checkout lento.',
+                channels: 'E-commerce, Link de Pagamento.',
+                action: '<strong>Ação:</strong> Frete fixo barato para Maceió (motoboy). Opção de "Mala Delivery" (condicional) para clientes VIP provarem em casa.'
+            },
+            'retention': {
+                title: 'Etapa 4: Pós-Venda (Encantamento)',
+                friction: 'Produto chegou mas cliente não deu feedback. Esquecimento da marca.',
+                channels: 'Email, WhatsApp Ativo.',
+                action: '<strong>Ação:</strong> Mensagem automática 5 dias após entrega perguntando "Serviu direitinho?". Cupom de 10% para a próxima compra válido por 30 dias.'
+            }
+        };
+
+        function updateJourney(step) {
+            // Update UI Active State
+            document.querySelectorAll('.journey-step').forEach(el => {
+                el.classList.remove('active-step', 'bg-primary', 'text-white', 'shadow-lg');
+                el.classList.add('bg-white', 'text-gray-800');
+                // Reset icons color inside
+                const icon = el.querySelector('.text-2xl');
+                if(icon) {
+                    icon.classList.remove('text-white');
+                    icon.classList.add('text-primary');
+                }
+            });
+
+            const active = document.getElementById('step-' + step);
+            active.classList.add('active-step', 'bg-primary', 'text-white', 'shadow-lg');
+            active.classList.remove('bg-white', 'text-gray-800');
+            
+            // Fix icon color
+            const activeIcon = active.querySelector('.text-2xl');
+            if(activeIcon) {
+                activeIcon.classList.remove('text-primary');
+                activeIcon.classList.add('text-white');
+            }
+
+            // Update Content
+            const data = journeyData[step];
+            const container = document.getElementById('journey-detail');
+            container.innerHTML = `
+                <h3 class="font-bold text-xl text-primary mb-2">${data.title}</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                    <div>
+                        <p class="text-sm font-bold text-red-500 mb-1">🔴 Pontos de Atrito</p>
+                        <p class="text-gray-700">${data.friction}</p>
+                        <p class="text-sm font-bold text-gray-500 mt-4 mb-1">📱 Canais Principais</p>
+                        <p class="text-gray-700">${data.channels}</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <p class="text-blue-900 text-sm">${data.action}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize Defaults - Começa pelo Vídeo de Introdução
+        updateJourney('discovery');
+        updateMediaSim();
+        
+        // Define o estado inicial da navegação
+        // Garantir que as classes de estilo estejam corretas ao carregar
+        document.querySelectorAll('.nav-item').forEach(el => {
+             el.classList.remove('active', 'bg-blue-50', 'text-primary', 'border-r-4', 'border-primary');
+             el.classList.add('text-gray-600');
+        });
+        const introBtn = document.getElementById('nav-intro');
+        if(introBtn) {
+            introBtn.classList.add('active', 'bg-blue-50', 'text-primary', 'border-r-4', 'border-primary');
+            introBtn.classList.remove('text-gray-600');
+        }
+
+    </script>
+</body>
+</html>
